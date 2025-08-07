@@ -1,0 +1,514 @@
+{
+  "doctors": [
+    {
+      "id": "1",
+      "name": "Dr. Sarah Johnson",
+      "email": "sarah.johnson@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0101",
+      "specialty": "Cardiology",
+      "qualifications": "MD, FACC",
+      "experience": "15 years",
+      "clinicAddress": "Heart Care Center, 123 Medical Plaza, New York",
+      "rating": 4.8,
+      "reviewCount": 156,
+      "consultationFee": 150,
+      "videoConsultationFee": 100,
+      "availability": {
+        "clinic": [
+          "Monday",
+          "Wednesday",
+          "Friday"
+        ],
+        "online": [
+          "Tuesday",
+          "Thursday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "09:00",
+        "10:00",
+        "11:00",
+        "14:00",
+        "15:00",
+        "16:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "Experienced cardiologist specializing in heart disease prevention and treatment.",
+      "consultationType": [
+        "clinic",
+        "video",
+        "call"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Dr. Michael Chen",
+      "email": "michael.chen@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0102",
+      "specialty": "Dermatology",
+      "qualifications": "MD, FAAD",
+      "experience": "12 years",
+      "clinicAddress": "Skin Care Clinic, 456 Health Street, Los Angeles",
+      "rating": 4.9,
+      "reviewCount": 203,
+      "consultationFee": 120,
+      "videoConsultationFee": 80,
+      "availability": {
+        "clinic": [
+          "Monday",
+          "Tuesday",
+          "Thursday"
+        ],
+        "online": [
+          "Wednesday",
+          "Friday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "08:00",
+        "09:00",
+        "10:00",
+        "13:00",
+        "14:00",
+        "15:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "Board-certified dermatologist with expertise in skin conditions and cosmetic procedures.",
+      "consultationType": [
+        "clinic",
+        "video",
+        "call"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Dr. Emily Rodriguez",
+      "email": "emily.rodriguez@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0103",
+      "specialty": "Neurology",
+      "qualifications": "MD, PhD",
+      "experience": "18 years",
+      "clinicAddress": "Neuro Center, 789 Brain Avenue, Chicago",
+      "rating": 4.7,
+      "reviewCount": 134,
+      "consultationFee": 200,
+      "videoConsultationFee": 150,
+      "availability": {
+        "clinic": [
+          "Tuesday",
+          "Wednesday",
+          "Friday"
+        ],
+        "online": [
+          "Monday",
+          "Thursday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "09:00",
+        "10:00",
+        "11:00",
+        "14:00",
+        "15:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "Neurologist specializing in brain disorders and neurological conditions.",
+      "consultationType": [
+        "clinic",
+        "video"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Dr. James Wilson",
+      "email": "james.wilson@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0104",
+      "specialty": "Orthopedics",
+      "qualifications": "MD, FAAOS",
+      "experience": "20 years",
+      "clinicAddress": "Bone & Joint Clinic, 321 Ortho Drive, Miami",
+      "rating": 4.6,
+      "reviewCount": 189,
+      "consultationFee": 180,
+      "videoConsultationFee": 120,
+      "availability": {
+        "clinic": [
+          "Monday",
+          "Wednesday",
+          "Thursday"
+        ],
+        "online": [
+          "Tuesday",
+          "Friday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "08:00",
+        "09:00",
+        "10:00",
+        "13:00",
+        "14:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "Orthopedic surgeon specializing in joint replacement and sports medicine.",
+      "consultationType": [
+        "clinic",
+        "video",
+        "call"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Dr. Lisa Thompson",
+      "email": "lisa.thompson@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0105",
+      "specialty": "Pediatrics",
+      "qualifications": "MD, FAAP",
+      "experience": "14 years",
+      "clinicAddress": "Children's Health Center, 654 Kids Lane, Boston",
+      "rating": 4.9,
+      "reviewCount": 267,
+      "consultationFee": 100,
+      "videoConsultationFee": 70,
+      "availability": {
+        "clinic": [
+          "Monday",
+          "Tuesday",
+          "Wednesday"
+        ],
+        "online": [
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "09:00",
+        "10:00",
+        "11:00",
+        "14:00",
+        "15:00",
+        "16:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "Pediatrician dedicated to providing comprehensive care for children and adolescents.",
+      "consultationType": [
+        "clinic",
+        "video",
+        "call"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Dr. Robert Kim",
+      "email": "robert.kim@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0106",
+      "specialty": "Psychiatry",
+      "qualifications": "MD, MRCPsych",
+      "experience": "16 years",
+      "clinicAddress": "Mental Health Center, 987 Wellness Blvd, Seattle",
+      "rating": 4.8,
+      "reviewCount": 145,
+      "consultationFee": 160,
+      "videoConsultationFee": 120,
+      "availability": {
+        "clinic": [
+          "Tuesday",
+          "Thursday",
+          "Friday"
+        ],
+        "online": [
+          "Monday",
+          "Wednesday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "10:00",
+        "11:00",
+        "14:00",
+        "15:00",
+        "16:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "Psychiatrist specializing in mental health disorders and therapy.",
+      "consultationType": [
+        "clinic",
+        "video",
+        "call"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Dr. Amanda Davis",
+      "email": "amanda.davis@email.com",
+      "password": "doctor123",
+      "phone": "+1-555-0107",
+      "specialty": "General Medicine",
+      "qualifications": "MD, ABIM",
+      "experience": "10 years",
+      "clinicAddress": "Family Health Clinic, 147 Main Street, Denver",
+      "rating": 4.7,
+      "reviewCount": 198,
+      "consultationFee": 90,
+      "videoConsultationFee": 60,
+      "availability": {
+        "clinic": [
+          "Monday",
+          "Wednesday",
+          "Friday"
+        ],
+        "online": [
+          "Tuesday",
+          "Thursday",
+          "Saturday"
+        ]
+      },
+      "timeSlots": [
+        "08:00",
+        "09:00",
+        "10:00",
+        "13:00",
+        "14:00",
+        "15:00"
+      ],
+      "image": "/placeholder.svg?height=200&width=200",
+      "about": "General practitioner providing comprehensive primary care services.",
+      "consultationType": [
+        "clinic",
+        "video",
+        "call"
+      ]
+    }
+  ],
+  "patients": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "patient123",
+      "phone": "+1-555-1001"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1753449750705",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-08-07",
+      "time": "14:00",
+      "status": "cancelled",
+      "consultationType": "video",
+      "symptoms": "hshshs",
+      "fee": 100
+    },
+    {
+      "id": "1753608241357",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "cancelled"
+    },
+    {
+      "id": "1753608244069",
+      "doctorId": "2",
+      "patientId": "1",
+      "doctorName": "Dr. Michael Chen",
+      "patientName": "John Doe",
+      "specialty": "Dermatology",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "pending"
+    },
+    {
+      "id": "1753608246626",
+      "doctorId": "5",
+      "patientId": "1",
+      "doctorName": "Dr. Lisa Thompson",
+      "patientName": "John Doe",
+      "specialty": "Pediatrics",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "pending"
+    },
+    {
+      "id": "1753608486759",
+      "doctorId": "7",
+      "patientId": "1",
+      "doctorName": "Dr. Amanda Davis",
+      "patientName": "John Doe",
+      "specialty": "General Medicine",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "pending"
+    },
+    {
+      "id": "1753608594110",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "pending"
+    },
+    {
+      "id": "1753608818624",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "cancelled"
+    },
+    {
+      "id": "1753609062114",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-07-27",
+      "time": "10:00",
+      "status": "pending"
+    },
+    {
+      "id": "1753969192000",
+      "doctorId": "2",
+      "patientId": "1",
+      "doctorName": "Dr. Michael Chen",
+      "patientName": "John Doe",
+      "specialty": "Dermatology",
+      "date": "2025-08-04",
+      "time": "14:00",
+      "status": "confirmed",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 120
+    },
+    {
+      "id": "1753970290676",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-08-04",
+      "time": "15:00",
+      "status": "confirmed",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 150
+    },
+    {
+      "id": "1753971379501",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-08-06",
+      "time": "10:00",
+      "status": "confirmed",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 150
+    },
+    {
+      "id": "1753971844236",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2025-08-08",
+      "time": "16:00",
+      "status": "confirmed",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 150,
+      "date": "2025-07-30",
+      "time": "11:00",
+      "status": "cancelled",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 150
+    },
+    {
+      "id": "1753671149792",
+      "doctorId": "4",
+      "patientId": "1",
+      "doctorName": "Dr. James Wilson",
+      "patientName": "John Doe",
+      "specialty": "Orthopedics",
+      "date": "2025-07-30",
+      "time": "09:00",
+      "status": "confirmed",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 180
+    },
+    {
+      "id": "1753780484677",
+      "doctorId": "2",
+      "patientId": "1",
+      "doctorName": "Dr. Michael Chen",
+      "patientName": "John Doe",
+      "specialty": "Dermatology",
+      "date": "2025-07-31",
+      "time": "09:00",
+      "status": "confirmed",
+      "consultationType": "clinic",
+      "symptoms": "",
+      "fee": 120
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "1",
+      "doctorId": "1",
+      "patientId": "1",
+      "appointmentId": "1753969192000",
+      "patientName": "John Doe",
+      "doctorName": "Dr. Sarah Johnson",
+      "medicines": [
+        {
+          "id": "1",
+          "name": "Aspirin",
+          "dosage": "75mg",
+          "duration": "30 days",
+          "instructions": "Take once daily after breakfast"
+        },
+        {
+          "id": "2",
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "duration": "30 days",
+          "instructions": "Take once daily in the morning"
+        }
+      ],
+      "notes": "Follow up in 2 weeks. Monitor blood pressure daily.",
+      "dateCreated": "2025-01-27T10:30:00Z"
+    }
+  ]
+}

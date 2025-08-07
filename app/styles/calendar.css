@@ -1,0 +1,182 @@
+/* React Big Calendar Dark Theme Overrides */
+.rbc-calendar {
+  font-family: inherit;
+  color: #e2e8f0; /* Light text for dark background */
+  height: 100%; /* Ensure calendar takes full height of its container */
+  display: flex;
+  flex-direction: column;
+}
+
+.rbc-header {
+  background-color: #1e293b; /* Darker header background */
+  color: #cbd5e1; /* Lighter text for headers */
+  border-bottom: 1px solid #475569; /* Visible border */
+  padding: 10px 0;
+}
+
+.rbc-day-bg {
+  background-color: #0f172a; /* Dark background for day cells */
+  border-right: 1px solid #334155; /* Visible vertical grid lines */
+}
+
+/* Specific style for today's background */
+.rbc-day-bg.rbc-today {
+  background-color: #1a2433 !important; /* Slightly lighter dark background for today, ensure it overrides */
+}
+
+.rbc-time-header .rbc-today {
+  background-color: #1a2433 !important; /* Darker background for today's header, ensure it overrides */
+}
+
+.rbc-time-view .rbc-allday-cell {
+  background-color: #1e293b; /* Darker background for all-day cell */
+}
+
+.rbc-time-view .rbc-row-segment {
+  border-bottom: 1px solid #334155; /* Visible horizontal grid lines */
+}
+
+.rbc-time-slot {
+  border-top: 1px solid #334155; /* Visible horizontal grid lines */
+}
+
+.rbc-label {
+  color: #94a3b8; /* Label text color */
+}
+
+.rbc-current-time-indicator {
+  background-color: #ef4444; /* Red indicator for current time */
+}
+
+/* --- ENHANCED EVENT STYLING --- */
+.rbc-event {
+  background-color: #3b82f6; /* Default event background (blue) - will be overridden by eventPropGetter */
+  border: none;
+  color: white;
+  border-radius: 8px; /* More rounded corners */
+  padding: 20px 25px; /* Increased padding for bigger events */
+  font-size: 1.5rem; /* Even larger font size for main text */
+  cursor: grab;
+  min-height: 100px; /* Increased minimum height for events */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow for prominence */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.4; /* Better line spacing */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflow */
+  white-space: normal; /* Allow text to wrap */
+}
+
+.rbc-event:hover {
+  transform: translateY(-4px); /* Slight lift on hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+}
+
+.rbc-event.rbc-selected {
+  background-color: #2563eb; /* Darker blue when selected */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+}
+
+.rbc-off-range-bg {
+  background-color: #1e293b; /* Background for days outside the current week/month */
+}
+
+/* Ensure today's column background is distinct and not overridden */
+.rbc-today {
+  background-color: #1a2433 !important; /* Use !important to ensure it overrides other rules */
+}
+
+.rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* More space below toolbar */
+  padding: 10px;
+  background-color: #1e293b; /* Toolbar background */
+  border-radius: 8px;
+}
+
+.rbc-toolbar button {
+  color: var(--secondary-foreground); /* Text color from theme */
+  background-color: var(--secondary); /* Background color from theme */
+  border: 1px solid var(--border); /* Border color from theme */
+  transition: all 0.2s ease-in-out;
+  padding: 14px 22px; /* Even larger buttons */
+  border-radius: 12px; /* More rounded buttons */
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.rbc-toolbar button:hover {
+  background-color: var(--accent); /* Hover background from theme */
+  color: var(--accent-foreground); /* Hover text color from theme */
+}
+
+.rbc-toolbar button.rbc-active {
+  background-color: var(--chart-2); /* Active button color (blue) from theme */
+  color: white; /* White text for active button */
+  border-color: var(--chart-2); /* Active border color from theme */
+}
+
+.rbc-toolbar-label {
+  color: #e2e8f0; /* Toolbar label text */
+  font-size: 1.8rem; /* Even larger label */
+  font-weight: 700; /* Bolder label */
+}
+
+/* Custom event component styling */
+.rbc-event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Adjust event text color for better contrast */
+.rbc-event,
+.rbc-event-content {
+  color: white !important;
+}
+
+/* Ensure drag and drop styles are visible */
+.rbc-addons-dnd .rbc-event {
+  cursor: grab;
+}
+
+.rbc-addons-dnd .rbc-event-resizing {
+  cursor: ns-resize;
+}
+
+.rbc-addons-dnd .rbc-event-dragged {
+  opacity: 0.7;
+}
+
+.rbc-addons-dnd .rbc-placeholder {
+  background-color: rgba(16, 185, 129, 0.7); /* Even more opaque greenish placeholder */
+  border: 5px dashed #10b981; /* Thicker dashed border */
+  border-radius: 10px;
+}
+
+/* Time column styling */
+.rbc-time-content > div + div {
+  border-left: 1px solid #334155; /* Vertical lines between days */
+}
+
+.rbc-time-content {
+  border-top: 1px solid #334155; /* Top border for time content */
+}
+
+.rbc-timeslot-group {
+  border-bottom: 1px solid #334155; /* Horizontal lines for time slots */
+}
+
+.rbc-time-gutter {
+  background-color: #1e293b; /* Background for the time column */
+  border-right: 1px solid #475569;
+}
+
+.rbc-time-gutter .rbc-label {
+  color: #cbd5e1; /* Time labels color */
+}
