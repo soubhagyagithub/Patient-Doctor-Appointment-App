@@ -1,0 +1,322 @@
+/* Enhanced Calendar Styles */
+.fc-theme-standard .fc-scrollgrid {
+  border: 1px solid hsl(var(--border));
+}
+
+.fc-theme-standard .fc-scrollgrid td {
+  border-color: hsl(var(--border));
+}
+
+.fc-theme-standard .fc-scrollgrid th {
+  border-color: hsl(var(--border));
+  background-color: hsl(var(--muted));
+}
+
+.fc-col-header-cell {
+  background-color: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.fc-daygrid-day {
+  background-color: hsl(var(--background));
+}
+
+.fc-daygrid-day:hover {
+  background-color: hsl(var(--muted)/0.5);
+}
+
+.fc-timegrid-slot {
+  border-color: hsl(var(--border));
+}
+
+.fc-timegrid-axis {
+  color: hsl(var(--muted-foreground));
+}
+
+.fc-button-primary {
+  background-color: hsl(var(--primary)) !important;
+  border-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.fc-button-primary:hover {
+  background-color: hsl(var(--primary)/0.9) !important;
+  border-color: hsl(var(--primary)/0.9) !important;
+}
+
+.fc-button-primary:focus {
+  box-shadow: 0 0 0 2px hsl(var(--ring)) !important;
+}
+
+.fc-toolbar h2 {
+  color: hsl(var(--foreground));
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.fc-event {
+  border-radius: 8px !important;
+  border-width: 2px !important;
+  font-weight: 500 !important;
+  padding: 2px 4px !important;
+  margin: 1px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.fc-event:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+  z-index: 10 !important;
+}
+
+.fc-event.fc-event-dragging {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+  transform: rotate(2deg) !important;
+  z-index: 20 !important;
+}
+
+.fc-event-title {
+  font-weight: 600 !important;
+}
+
+.fc-event-time {
+  font-size: 0.75rem !important;
+  opacity: 0.9 !important;
+}
+
+/* Status-specific colors enhanced */
+.fc-event[data-status="confirmed"] {
+  background-color: #10b981 !important;
+  border-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+.fc-event[data-status="pending"] {
+  background-color: #f59e0b !important;
+  border-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+.fc-event[data-status="completed"] {
+  background-color: #6366f1 !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+.fc-event[data-status="cancelled"] {
+  background-color: #ef4444 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .fc-theme-standard .fc-scrollgrid {
+    border-color: hsl(var(--border));
+  }
+  
+  .fc-theme-standard .fc-scrollgrid td,
+  .fc-theme-standard .fc-scrollgrid th {
+    border-color: hsl(var(--border));
+  }
+  
+  .fc-daygrid-day {
+    background-color: hsl(var(--background));
+  }
+  
+  .fc-timegrid-slot {
+    border-color: hsl(var(--border));
+  }
+}
+
+/* Today highlighting */
+.fc-day-today {
+  background-color: hsl(var(--accent)) !important;
+}
+
+.fc-timegrid-col.fc-day-today {
+  background-color: hsl(var(--accent)/0.3) !important;
+}
+
+/* Slot highlighting during drag */
+.fc-highlight {
+  background-color: hsl(var(--primary)/0.2) !important;
+}
+
+/* Custom status indicator dot */
+.fc-event .status-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 5;
+}
+
+/* Advanced Drag and Drop Animations */
+@keyframes dragStart {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.05) rotate(2deg); }
+}
+
+@keyframes dragSuccess {
+  0% { transform: scale(1.05) rotate(2deg); }
+  50% { transform: scale(1.1) rotate(0deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+}
+
+/* Dragging state styles */
+.fc-event.fc-event-dragging {
+  animation: dragStart 0.2s ease-out !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+  z-index: 1000 !important;
+  opacity: 0.9 !important;
+}
+
+/* Drop zone highlighting */
+.fc-timegrid-slot:hover {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  animation: pulseGlow 1s infinite;
+}
+
+/* Drag mirror styling */
+.fc-event-mirror {
+  opacity: 0.8 !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+  border-radius: 10px !important;
+}
+
+/* Hover effects for interactive elements */
+.fc-event:hover .cancel-btn {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Quick action button styles */
+.quick-cancel-btn {
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.quick-cancel-btn:hover {
+  transform: scale(1.2) !important;
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Status-specific hover effects */
+.fc-event[data-status="pending"]:hover {
+  box-shadow: 0 6px 12px rgba(245, 158, 11, 0.4) !important;
+}
+
+.fc-event[data-status="confirmed"]:hover {
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4) !important;
+}
+
+.fc-event[data-status="completed"]:hover {
+  box-shadow: 0 6px 12px rgba(99, 102, 241, 0.4) !important;
+}
+
+.fc-event[data-status="cancelled"]:hover {
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Improved tooltips */
+.enhanced-tooltip {
+  backdrop-filter: blur(10px) !important;
+  animation: slideInUp 0.2s ease-out !important;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Filter section animations */
+.filter-section {
+  animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading state improvements */
+.calendar-loading {
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+/* Success/Error toast positioning adjustments */
+.toast-container {
+  z-index: 9999 !important;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 768px) {
+  .fc-event {
+    font-size: 0.75rem !important;
+    padding: 2px !important;
+  }
+
+  .quick-cancel-btn {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 14px !important;
+  }
+
+  .enhanced-tooltip {
+    max-width: 250px !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Accessibility improvements */
+.fc-event:focus {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+.fc-event[aria-selected="true"] {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Print styles */
+@media print {
+  .quick-cancel-btn,
+  .filter-section,
+  .enhanced-tooltip {
+    display: none !important;
+  }
+
+  .fc-event {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+  }
+}

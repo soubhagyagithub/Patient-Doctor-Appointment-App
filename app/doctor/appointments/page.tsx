@@ -31,9 +31,11 @@ import {
   Plus
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { AppointmentCalendar } from "@/components/AppointmentCalendar";
+import { EnhancedAppointmentCalendar } from "@/components/EnhancedAppointmentCalendar";
+import { EnhancedAppointmentCard } from "@/components/EnhancedAppointmentCard";
 import { SimpleFooter } from "@/components/SimpleFooter";
 import { Skeleton } from "@/components/ui/skeleton"; // For loading state
+import { ApiStatusChecker } from "@/components/ApiStatusChecker";
 
 export default function DoctorAppointmentsPage() {
   const { user, role, isAuthenticated } = useAuth(); // Added role, isAuthenticated for robust checks
@@ -42,6 +44,7 @@ export default function DoctorAppointmentsPage() {
   console.log("Auth State:", { user, role, isAuthenticated });
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming"); // State for active tab filtering
   const [isCalendarView, setIsCalendarView] = useState(false); // State to toggle between list and calendar view
   const [prescriptions, setPrescriptions] = useState<any[]>([]); // Store prescriptions for checking
@@ -69,10 +72,13 @@ export default function DoctorAppointmentsPage() {
         )
       );
       setPrescriptions(prescriptionsData);
+      setHasError(false);
     } catch (error) {
+      console.error('Failed to load appointments:', error);
+      setHasError(true);
       toast({
-        title: "Error",
-        description: "Failed to load appointments",
+        title: "Connection Error",
+        description: error instanceof Error ? error.message : "Failed to load appointments. Please check your connection.",
         variant: "destructive",
       });
     } finally {
@@ -179,6 +185,12 @@ export default function DoctorAppointmentsPage() {
         <DoctorNavbar />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {hasError && (
+            <div className="mb-6">
+              <ApiStatusChecker />
+            </div>
+          )}
+
           <div className="text-center mb-8">
             {/* CHANGED: Added dual-theme text colors */}
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -253,7 +265,7 @@ export default function DoctorAppointmentsPage() {
             </Card>
           ) : isCalendarView ? ( // <-- THIS IS THE CRUCIAL CHANGE
             // Render the FullCalendar component if in calendar view
-            user && <AppointmentCalendar doctorId={user.id} />
+            user && <EnhancedAppointmentCalendar doctorId={user.id} />
           ) : (
             // Render the list of appointments, grouped by date (your original structure)
             <div className="space-y-8">
@@ -277,176 +289,25 @@ export default function DoctorAppointmentsPage() {
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {dayAppointments.map((appointment) => (
-                          <Card
+                          <EnhancedAppointmentCard
                             key={appointment.id}
-                            className="hover:shadow-xl transition-shadow"
-                          >
-                            <CardHeader>
-                              <div className="flex items-center justify-between">
-                                <CardTitle className="text-lg flex items-center">
-                                  <User className="w-5 h-5 mr-2" />
-                                  {appointment.patientName}
-                                </CardTitle>
-                                <Badge
-                                  className={`${getStatusBadgeClass(
-                                    appointment.status
-                                  )} capitalize`}
-                                >
-                                  {appointment.status}
-                                </Badge>
-                              </div>
-                              <CardDescription className="flex items-center pt-1">
-                                <Clock className="w-4 h-4 mr-2" />
-                                {appointment.time}
-                              </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                              <div className="space-y-4">
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
-                                  <p><strong>Specialty:</strong> {appointment.specialty}</p>
-                                  {appointment.consultationType && (
-                                    <p><strong>Type:</strong> {appointment.consultationType}</p>
-                                  )}
-                                  {appointment.fee && (
-                                    <p><strong>Fee:</strong> ${appointment.fee}</p>
-                                  )}
-                                </div>
-
-                                {/* Action buttons based on status */}
-                                {appointment.status === "pending" && (
-                                  <div className="flex flex-col space-y-2">
-                                    <div className="flex space-x-2">
-                                      <Button
-                                        size="sm"
-                                        onClick={() =>
-                                          updateAppointmentStatus(
-                                            appointment.id,
-                                            "confirmed"
-                                          )
-                                        }
-                                        className="flex-1 bg-green-600 hover:bg-green-700"
-                                      >
-                                        <CheckCircle className="w-4 h-4 mr-2" />
-                                        Confirm
-                                      </Button>
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        onClick={() =>
-                                          updateAppointmentStatus(
-                                            appointment.id,
-                                            "cancelled"
-                                          )
-                                        }
-                                        className="flex-1 text-red-600 border-red-600 hover:bg-red-50"
-                                      >
-                                        <XCircle className="w-4 h-4 mr-2" />
-                                        Cancel
-                                      </Button>
-                                    </div>
-                                    <Button
-                                      size="sm"
-                                      variant="outline"
-                                      className="w-full"
-                                    >
-                                      <CalendarClock className="w-4 h-4 mr-2" />
-                                      Reschedule
-                                    </Button>
-                                  </div>
-                                )}
-
-                                {appointment.status === "confirmed" && (
-                                  <div className="flex flex-col space-y-2">
-                                    <Button
-                                      size="sm"
-                                      onClick={() =>
-                                        updateAppointmentStatus(
-                                          appointment.id,
-                                          "completed"
-                                        )
-                                      }
-                                      className="w-full bg-blue-600 hover:bg-blue-700"
-                                    >
-                                      <UserCheck className="w-4 h-4 mr-2" />
-                                      Mark as Complete
-                                    </Button>
-                                    <div className="flex space-x-2">
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        className="flex-1"
-                                      >
-                                        <CalendarClock className="w-4 h-4 mr-2" />
-                                        Reschedule
-                                      </Button>
-                                      <Button
-                                        size="sm"
-                                        variant="outline"
-                                        onClick={() =>
-                                          updateAppointmentStatus(
-                                            appointment.id,
-                                            "cancelled"
-                                          )
-                                        }
-                                        className="flex-1 text-red-600 border-red-600 hover:bg-red-50"
-                                      >
-                                        <Ban className="w-4 h-4 mr-2" />
-                                        Cancel
-                                      </Button>
-                                    </div>
-                                  </div>
-                                )}
-
-                                {appointment.status === "completed" && (
-                                  <div className="space-y-3">
-                                    <div className="text-center py-2">
-                                      <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                                        ✓ Completed
-                                      </span>
-                                    </div>
-                                    {(() => {
-                                      const existingPrescription = getPrescriptionForAppointment(appointment.id)
-                                      return existingPrescription ? (
-                                        <div className="space-y-2">
-                                          <Button
-                                            size="sm"
-                                            variant="outline"
-                                            onClick={() => router.push('/doctor/prescriptions')}
-                                            className="w-full border-green-600 text-green-600 hover:bg-green-50"
-                                          >
-                                            <FileText className="w-4 h-4 mr-2" />
-                                            View Prescription
-                                          </Button>
-                                          <p className="text-xs text-green-600 dark:text-green-400 text-center">
-                                            Prescription created
-                                          </p>
-                                        </div>
-                                      ) : (
-                                        <Button
-                                          size="sm"
-                                          onClick={() =>
-                                            router.push(`/doctor/prescriptions?appointmentId=${appointment.id}&patientId=${appointment.patientId}&patientName=${encodeURIComponent(appointment.patientName)}`)
-                                          }
-                                          className="w-full bg-green-600 hover:bg-green-700"
-                                        >
-                                          <Plus className="w-4 h-4 mr-2" />
-                                          Create Prescription
-                                        </Button>
-                                      )
-                                    })()}
-                                  </div>
-                                )}
-
-                                {appointment.status === "cancelled" && (
-                                  <div className="text-center py-2">
-                                    <span className="text-sm font-medium text-red-600 dark:text-red-400">
-                                      ✗ Cancelled
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-                            </CardContent>
-                          </Card>
+                            appointment={appointment}
+                            prescriptions={prescriptions}
+                            onUpdate={(updatedAppointment) => {
+                              setAppointments(prev =>
+                                prev.map(apt =>
+                                  apt.id === updatedAppointment.id ? updatedAppointment : apt
+                                )
+                              )
+                            }}
+                            onDelete={(appointmentId) => {
+                              setAppointments(prev =>
+                                prev.filter(apt => apt.id !== appointmentId)
+                              )
+                            }}
+                            showActions={true}
+                            showPatientInfo={true}
+                          />
                         ))}
                       </div>
                     </div>

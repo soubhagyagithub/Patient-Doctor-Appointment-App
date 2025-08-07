@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useAuth } from "@/contexts/AuthContext"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
 import { DoctorNavbar } from "@/components/DoctorNavbar"
 import { SimpleFooter } from "@/components/SimpleFooter"
@@ -12,16 +12,19 @@ import { Button } from "@/components/ui/button"
 import { prescriptionsAPI, appointmentsAPI, type Prescription, type Appointment } from "@/lib/api"
 import { useToast } from "@/hooks/use-toast"
 import { Plus, FileText } from "lucide-react"
+import { ApiStatusChecker } from "@/components/ApiStatusChecker"
 
 export default function PrescriptionsPage() {
   const { user } = useAuth()
   const { toast } = useToast()
+  const router = useRouter()
   const searchParams = useSearchParams()
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([])
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingPrescription, setEditingPrescription] = useState<Prescription | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
   const [initialFormData, setInitialFormData] = useState<any>(null)
 
   // Generate patients list from appointments
@@ -67,20 +70,24 @@ export default function PrescriptionsPage() {
 
   const loadData = async () => {
     if (!user) return
-    
+
     setIsLoading(true)
+    setHasError(false)
     try {
       const [prescriptionsData, appointmentsData] = await Promise.all([
         prescriptionsAPI.getByDoctorId(user.id),
         appointmentsAPI.getByDoctorId(user.id)
       ])
-      
+
       setPrescriptions(prescriptionsData)
       setAppointments(appointmentsData)
+      setHasError(false)
     } catch (error) {
+      console.error('Failed to load data:', error)
+      setHasError(true)
       toast({
-        title: "Error",
-        description: "Failed to load data",
+        title: "Connection Error",
+        description: error instanceof Error ? error.message : "Failed to load data. Please check your connection.",
         variant: "destructive",
       })
     } finally {
@@ -118,8 +125,25 @@ export default function PrescriptionsPage() {
   const handleFormSuccess = async () => {
     setShowForm(false)
     setEditingPrescription(null)
+
+    // Check if this was created from an appointment
+    const appointmentId = searchParams.get('appointmentId')
+
+    if (appointmentId) {
+      // Redirect back to appointments if prescription was created from appointment
+      toast({
+        title: "Success",
+        description: "Prescription created successfully! Redirecting to appointments...",
+      })
+      setTimeout(() => {
+        router.push('/doctor/appointments')
+      }, 1500)
+    } else {
+      // Normal flow - stay on prescriptions page
+      await loadData()
+    }
+
     setInitialFormData(null)
-    await loadData()
   }
 
   const handleFormCancel = () => {
@@ -136,6 +160,12 @@ export default function PrescriptionsPage() {
         <DoctorNavbar />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {hasError && (
+            <div className="mb-6">
+              <ApiStatusChecker />
+            </div>
+          )}
+
           <div className="flex justify-between items-center mb-8">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">

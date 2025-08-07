@@ -51,6 +51,8 @@ export function PrescriptionForm({
   onCancel
 }: PrescriptionFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [existingPrescription, setExistingPrescription] = useState<Prescription | null>(null)
+  const [checkingExisting, setCheckingExisting] = useState(false)
   const { toast } = useToast()
 
   const {
@@ -95,7 +97,7 @@ export function PrescriptionForm({
     console.log("Available appointments:", appointments)
   }, [selectedPatientId, selectedAppointmentId, patients, appointments])
 
-  const handlePatientChange = (patientId: string) => {
+  const handlePatientChange = async (patientId: string) => {
     console.log("Patient changed to:", patientId)
     const patient = patients.find(p => p.id === patientId)
     if (patient) {
@@ -104,6 +106,22 @@ export function PrescriptionForm({
       // Clear appointment selection when changing patient
       setValue("appointmentId", "")
       console.log("Updated patient:", patient.name, "Cleared appointment")
+
+      // Check for existing prescription for this patient (only if not editing)
+      if (!initialData?.id) {
+        setCheckingExisting(true)
+        try {
+          const existing = await prescriptionsAPI.findExistingForPatient(doctorId, patientId)
+          setExistingPrescription(existing)
+          if (existing) {
+            console.log("Found existing prescription for patient:", existing)
+          }
+        } catch (error) {
+          console.error("Error checking for existing prescription:", error)
+        } finally {
+          setCheckingExisting(false)
+        }
+      }
     }
   }
 
@@ -111,6 +129,7 @@ export function PrescriptionForm({
     setIsLoading(true)
     try {
       if (initialData?.id) {
+        // Editing existing prescription
         await prescriptionsAPI.update(initialData.id, {
           ...data,
           doctorId,
@@ -121,17 +140,26 @@ export function PrescriptionForm({
           description: "Prescription updated successfully"
         })
       } else {
-        await prescriptionsAPI.create({
+        // Creating new prescription or merging with existing
+        const result = await prescriptionsAPI.createOrMerge({
           ...data,
           doctorId,
           doctorName,
         })
-        toast({
-          title: "Success",
-          description: initialData?.appointmentId
-            ? `Prescription created successfully for ${data.patientName}`
-            : "Prescription created successfully"
-        })
+
+        if (result.wasUpdated) {
+          toast({
+            title: "Medicines Added",
+            description: `New medicines have been added to ${data.patientName}'s existing prescription`,
+          })
+        } else {
+          toast({
+            title: "Success",
+            description: initialData?.appointmentId
+              ? `Prescription created successfully for ${data.patientName}`
+              : "New prescription created successfully"
+          })
+        }
       }
       onSuccess()
     } catch (error) {
@@ -161,6 +189,26 @@ export function PrescriptionForm({
           <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
             <p className="text-sm text-blue-700 dark:text-blue-300">
               Creating prescription for <strong>{initialData.patientName}</strong> after completed appointment
+            </p>
+          </div>
+        )}
+
+        {existingPrescription && !initialData?.id && (
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg border border-yellow-200 dark:border-yellow-800">
+            <p className="text-sm text-yellow-700 dark:text-yellow-300">
+              <strong>Notice:</strong> An existing prescription was found for this patient.
+              New medicines will be added to the existing prescription instead of creating a duplicate.
+            </p>
+            <div className="mt-2 text-xs text-yellow-600 dark:text-yellow-400">
+              Existing medicines: {existingPrescription.medicines.map(m => m.name).join(", ")}
+            </div>
+          </div>
+        )}
+
+        {checkingExisting && !initialData?.id && (
+          <div className="bg-gray-50 dark:bg-gray-900/20 p-3 rounded-lg border border-gray-200 dark:border-gray-800">
+            <p className="text-sm text-gray-700 dark:text-gray-300">
+              Checking for existing prescriptions...
             </p>
           </div>
         )}

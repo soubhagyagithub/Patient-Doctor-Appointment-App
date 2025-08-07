@@ -3,7 +3,7 @@
 import { useAuth } from "@/contexts/AuthContext"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
 import { DoctorNavbar } from "@/components/DoctorNavbar"
-import { AppointmentCalendar } from "@/components/AppointmentCalendar"
+import { SuperEnhancedAppointmentCalendar } from "@/components/SuperEnhancedAppointmentCalendar"
 import { SimpleFooter } from "@/components/SimpleFooter"
 
 export default function CalendarPage() {
@@ -20,11 +20,11 @@ export default function CalendarPage() {
               Calendar
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Manage your appointments with drag-and-drop functionality
+              Advanced calendar with drag-and-drop rescheduling, smart filters, quick actions, and confirmation dialogs
             </p>
           </div>
 
-          {user && <AppointmentCalendar doctorId={user.id} />}
+          {user && <SuperEnhancedAppointmentCalendar doctorId={user.id} />}
         </div>
         <SimpleFooter />
       </div>
