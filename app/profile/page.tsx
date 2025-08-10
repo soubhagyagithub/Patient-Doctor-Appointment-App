@@ -5,8 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useAuth } from "@/contexts/AuthContext"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
-import { Navbar } from "@/components/Navbar"
-import { SimpleFooter } from "@/components/SimpleFooter"
+import { PatientNavbar } from "@/components/PatientNavbar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -62,7 +61,7 @@ export default function ProfilePage() {
     <ProtectedRoute allowedRoles={["patient"]}>
       {/* CHANGED: Added dual-theme background */}
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Navbar />
+        <PatientNavbar />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-8">
@@ -174,7 +173,6 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </div>
-        <SimpleFooter />
       </div>
     </ProtectedRoute>
   )

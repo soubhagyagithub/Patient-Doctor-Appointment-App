@@ -415,7 +415,7 @@
       "specialty": "Cardiology",
       "date": "2025-08-04",
       "time": "15:00",
-      "status": "confirmed",
+      "status": "completed",
       "consultationType": "clinic",
       "symptoms": "",
       "fee": 150
@@ -488,7 +488,7 @@
       "id": "1",
       "doctorId": "1",
       "patientId": "1",
-      "appointmentId": "1753969192000",
+      "appointmentId": "1753970290676",
       "patientName": "John Doe",
       "doctorName": "Dr. Sarah Johnson",
       "medicines": [

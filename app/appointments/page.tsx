@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { Navbar } from "@/components/Navbar";
+import { PatientNavbar } from "@/components/PatientNavbar";
 import { SimpleFooter } from "@/components/SimpleFooter";
 import {
   Card,
@@ -98,7 +98,7 @@ export default function AppointmentsPage() {
   return (
     <ProtectedRoute allowedRoles={["patient"]}>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Navbar />
+        <PatientNavbar />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center mb-8">

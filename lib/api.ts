@@ -340,6 +340,61 @@ export const appointmentsAPI = {
   },
 }
 
+// Patients API
+export const patientsAPI = {
+  async getAll(): Promise<Patient[]> {
+    try {
+      const response = await fetch(`${API_BASE}/patients`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch patients: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    } catch (error) {
+      handleApiError(error, "fetching patients");
+    }
+  },
+
+  async getById(id: string): Promise<Patient> {
+    try {
+      const response = await fetch(`${API_BASE}/patients/${id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch patient");
+      }
+      return response.json();
+    } catch (error) {
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error(
+          "Cannot connect to server. Please run 'npm run json-server' in a separate terminal."
+        );
+      }
+      throw error;
+    }
+  },
+
+  async update(id: string, data: Partial<Patient>): Promise<Patient> {
+    try {
+      const response = await fetch(`${API_BASE}/patients/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update patient");
+      }
+      return response.json();
+    } catch (error) {
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error(
+          "Cannot connect to server. Please run 'npm run json-server' in a separate terminal."
+        );
+      }
+      throw error;
+    }
+  },
+};
+
 // Prescriptions API
 export const prescriptionsAPI = {
   async create(prescription: Omit<Prescription, "id" | "dateCreated">): Promise<Prescription> {

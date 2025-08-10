@@ -4,8 +4,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "@/contexts/AuthContext"
 import { useSearchParams } from "next/navigation"
 import { ProtectedRoute } from "@/components/ProtectedRoute"
-import { ModernNavbar } from "@/components/ModernNavbar"
-import { ModernFooter } from "@/components/ModernFooter"
+import { PatientNavbar } from "@/components/PatientNavbar"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -108,7 +107,7 @@ export default function FindDoctorsPage() {
     <ProtectedRoute allowedRoles={["patient"]}>
       {/* CHANGED: Added dark mode background */}
       <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
-        <ModernNavbar />
+        <PatientNavbar />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
@@ -284,8 +283,6 @@ export default function FindDoctorsPage() {
             </>
           )}
         </div>
-
-        <ModernFooter />
       </div>
     </ProtectedRoute>
   )

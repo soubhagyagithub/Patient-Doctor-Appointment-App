@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react"; // Added useCallback
+import dynamic from "next/dynamic";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "@/components/ProtectedRoute";

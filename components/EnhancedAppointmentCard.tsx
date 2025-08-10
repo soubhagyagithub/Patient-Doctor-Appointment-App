@@ -12,24 +12,27 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { appointmentsAPI, prescriptionsAPI, type Appointment } from "@/lib/api"
 import { useToast } from "@/hooks/use-toast"
-import { 
-  Calendar, 
-  Clock, 
-  User, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  CheckCircle, 
-  XCircle, 
-  RotateCcw, 
-  Edit, 
+import {
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  Mail,
+  MapPin,
+  CheckCircle,
+  XCircle,
+  RotateCcw,
+  Edit,
   Trash2,
   MoreHorizontal,
   AlertCircle,
   FileText,
   Video,
-  Stethoscope
+  Stethoscope,
+  Eye,
+  Download
 } from "lucide-react"
+import { PrescriptionActions } from './PrescriptionViewer'
 
 interface EnhancedAppointmentCardProps {
   appointment: Appointment
@@ -238,10 +241,19 @@ export function EnhancedAppointmentCard({
 
   // Check if prescription exists for this appointment
   const getPrescriptionForAppointment = () => {
-    return prescriptions.find(p =>
-      p.appointmentId === appointment.id ||
-      (p.patientId === appointment.patientId && appointment.status === "completed")
-    )
+    // First try to find by exact appointment ID match
+    const exactMatch = prescriptions.find(p => p.appointmentId === appointment.id)
+    if (exactMatch) return exactMatch
+
+    // If no exact match and appointment is completed, look for any prescription for this patient from this doctor
+    if (appointment.status === "completed") {
+      return prescriptions.find(p =>
+        p.patientId === appointment.patientId &&
+        p.doctorId === appointment.doctorId
+      )
+    }
+
+    return null
   }
 
   const existingPrescription = getPrescriptionForAppointment()
@@ -352,15 +364,17 @@ export function EnhancedAppointmentCard({
             <div className="space-y-2 pt-2">
               {existingPrescription ? (
                 <div className="space-y-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => router.push('/doctor/prescriptions')}
-                    className="w-full border-green-600 text-green-600 hover:bg-green-50"
-                  >
-                    <FileText className="w-4 h-4 mr-2" />
-                    View Prescription
-                  </Button>
+                  <PrescriptionActions
+                    prescription={existingPrescription}
+                    doctorInfo={{
+                      name: appointment.doctorName,
+                      qualifications: "MD, MBBS",
+                      specialty: appointment.specialty,
+                      phone: "+1-555-0101",
+                      clinicAddress: "123 Medical Plaza, Healthcare City",
+                      registrationNumber: "MED12345"
+                    }}
+                  />
                   <p className="text-xs text-green-600 dark:text-green-400 text-center">
                     Prescription created
                   </p>
