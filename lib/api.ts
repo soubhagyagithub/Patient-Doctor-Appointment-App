@@ -1,5 +1,103 @@
-// Use external API endpoint
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://doctor-appointment-api-1.onrender.com";
+// Use local API server with fallback
+const LOCAL_API = "http://localhost:3001";
+const EXTERNAL_API = "https://doctor-appointment-api-1.onrender.com";
+
+// Global variable to cache the working API base
+let workingApiBase: string | null = null;
+
+// Function to detect which API server is available
+const detectWorkingApiBase = async (): Promise<string> => {
+  if (workingApiBase) {
+    return workingApiBase;
+  }
+
+  // Check if we're in a production environment
+  const isProduction = typeof window !== 'undefined' &&
+    !window.location.hostname.includes('localhost') &&
+    !window.location.hostname.includes('127.0.0.1') &&
+    !window.location.hostname.includes('0.0.0.0');
+
+  // In production, skip localhost and use external API directly
+  if (isProduction) {
+    workingApiBase = EXTERNAL_API;
+    console.log("✅ Production environment detected, using external API:", EXTERNAL_API);
+    return EXTERNAL_API;
+  }
+
+  // In development, try local server first
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
+
+    const response = await fetch(`${LOCAL_API}/doctors`, {
+      method: "HEAD",
+      mode: "cors",
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      workingApiBase = LOCAL_API;
+      console.log("✅ Using local JSON server:", LOCAL_API);
+      return LOCAL_API;
+    }
+  } catch (error) {
+    console.warn("⚠️ Local JSON server not available:", error);
+  }
+
+  // Fallback to external server
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+
+    const response = await fetch(`${EXTERNAL_API}/doctors`, {
+      method: "HEAD",
+      mode: "cors",
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      workingApiBase = EXTERNAL_API;
+      console.log("✅ Using external API server:", EXTERNAL_API);
+      return EXTERNAL_API;
+    }
+  } catch (error) {
+    console.warn("⚠️ External API server not available:", error);
+  }
+
+  // If nothing works, default to external API (production-safe)
+  workingApiBase = EXTERNAL_API;
+  console.log("⚠️ Defaulting to external API:", EXTERNAL_API);
+  return EXTERNAL_API;
+};
+
+// Initialize API_BASE - will be set dynamically
+let API_BASE = LOCAL_API;
+
+// Health check function to test API connectivity
+export const checkApiHealth = async (): Promise<{ isHealthy: boolean; apiBase: string; error?: string }> => {
+  try {
+    const apiBase = await detectWorkingApiBase();
+    const response = await fetch(`${apiBase}/doctors`, {
+      method: "HEAD",
+    });
+    return {
+      isHealthy: response.ok,
+      apiBase: apiBase,
+      error: response.ok ? undefined : `HTTP ${response.status} ${response.statusText}`
+    };
+  } catch (error) {
+    const apiBase = await detectWorkingApiBase();
+    return {
+      isHealthy: false,
+      apiBase: apiBase,
+      error: error instanceof Error ? error.message : "Unknown error"
+    };
+  }
+};
 
 export interface Doctor {
   id: string;
@@ -38,6 +136,19 @@ export interface Appointment {
   doctorName: string;
   patientName: string;
   specialty: string;
+  consultationType?: "clinic" | "video" | "call";
+  symptoms?: string;
+  fee?: number;
+  diagnosis?: string;
+  notes?: string;
+  vitalSigns?: {
+    bloodPressure?: string;
+    heartRate?: string;
+    temperature?: string;
+    weight?: string;
+    bloodGlucose?: string;
+    bmi?: string;
+  };
 }
 
 export interface Prescription {
@@ -47,6 +158,7 @@ export interface Prescription {
   appointmentId?: string;
   patientName: string;
   doctorName: string;
+  diagnosis?: string;
   medicines: Medicine[];
   notes?: string;
   dateCreated: string;
@@ -58,7 +170,21 @@ export interface Medicine {
   name: string;
   dosage: string;
   duration: string;
+  frequency?: string;
   instructions?: string;
+}
+
+export interface Diagnosis {
+  id: string;
+  patientId: string;
+  doctorId: string;
+  appointmentId?: string;
+  diagnosis: string;
+  icdCode?: string;
+  severity?: "Mild" | "Moderate" | "Severe";
+  status: "Active" | "Resolved" | "Improving" | "Chronic";
+  dateOfDiagnosis: string;
+  notes?: string;
 }
 
 // Check if JSON Server is running
@@ -75,12 +201,22 @@ const checkServerStatus = async () => {
   }
 };
 
-// Enhanced error handler
+// Enhanced error handler with better debugging
 const handleApiError = (error: any, operation: string) => {
+  console.error(`API Error during ${operation}:`, error);
+  console.error(`API_BASE being used: ${API_BASE}`);
+
   if (error instanceof TypeError && error.message.includes("fetch")) {
-    throw new Error(
-      `Cannot connect to API server. Please ensure the JSON server is running on ${API_BASE}. Run 'npm run json-server' in a separate terminal.`
-    );
+    // Check if we're trying to connect to localhost
+    if (API_BASE.includes("localhost")) {
+      throw new Error(
+        `Cannot connect to local JSON server at ${API_BASE}. Please ensure JSON server is running with 'npm run json-server' in a separate terminal.`
+      );
+    } else {
+      throw new Error(
+        `Cannot connect to API server at ${API_BASE}. Please check your internet connection or server status.`
+      );
+    }
   }
 
   if (error.name === 'AbortError') {
@@ -159,7 +295,8 @@ export const authAPI = {
 export const doctorsAPI = {
   async getAll(): Promise<Doctor[]> {
     try {
-      const response = await fetch(`${API_BASE}/doctors`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/doctors`);
       if (!response.ok) {
         throw new Error(`Failed to fetch doctors: ${response.status} ${response.statusText}`);
       }
@@ -237,8 +374,9 @@ export const appointmentsAPI = {
 
   async getByDoctorId(doctorId: string): Promise<Appointment[]> {
     try {
+      const apiBase = await detectWorkingApiBase();
       const response = await fetch(
-        `${API_BASE}/appointments?doctorId=${doctorId}`
+        `${apiBase}/appointments?doctorId=${doctorId}`
       );
       if (!response.ok) {
         throw new Error(`Failed to fetch appointments: ${response.status} ${response.statusText}`);
@@ -427,7 +565,8 @@ export const prescriptionsAPI = {
 
   async getByDoctorId(doctorId: string): Promise<Prescription[]> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions?doctorId=${doctorId}`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions?doctorId=${doctorId}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch prescriptions: ${response.status} ${response.statusText}`);
       }

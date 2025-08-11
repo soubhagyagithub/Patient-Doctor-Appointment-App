@@ -314,12 +314,20 @@ export default function PatientsPage() {
                             <span>Last visit: {formatLastVisit(patient.lastVisit)}</span>
                           </div>
                           
-                          <Button asChild size="sm" className="w-full">
-                            <Link href={`/doctor/patients/${patient.id}`}>
-                              <Eye className="w-4 h-4 mr-2" />
-                              View Details
-                            </Link>
-                          </Button>
+                          <div className="space-y-2">
+                            <Button asChild size="sm" className="w-full">
+                              <Link href={`/doctor/patients/${patient.id}`}>
+                                <Eye className="w-4 h-4 mr-2" />
+                                View Details
+                              </Link>
+                            </Button>
+                            <Button asChild size="sm" variant="outline" className="w-full">
+                              <Link href={`/doctor/patients/${patient.id}/medical-history`}>
+                                <FileText className="w-4 h-4 mr-2" />
+                                Medical History
+                              </Link>
+                            </Button>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>

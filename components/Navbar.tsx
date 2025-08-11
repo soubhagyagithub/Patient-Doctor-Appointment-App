@@ -24,7 +24,7 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href={user.role === "doctor" ? "/doctor/dashboard" : "/"} className="text-2xl font-bold text-white">
-              DocBook
+              Shedula
             </Link>
           </div>
 

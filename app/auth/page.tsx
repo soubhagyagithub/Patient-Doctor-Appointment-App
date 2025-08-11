@@ -69,7 +69,7 @@ const AuthForm = ({
           Doc<span className="text-blue-500">Book</span>
         </span>
       </div>
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50 mb-2">{isLogin ? "Welcome Back!" : "Join DocBook"}</h1>
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50 mb-2">{isLogin ? "Welcome Back!" : "Join Shedula"}</h1>
       <p className="text-gray-600 dark:text-gray-400">
         {isLogin ? "Sign in to continue your health journey" : "Start your healthcare journey today"}
       </p>
@@ -358,7 +358,7 @@ export default function AuthPage() {
                 Doc<span className="text-blue-500">Book</span>
               </span>
             </div>
-            <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-gray-50">Welcome to DocBook</h2>
+            <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-gray-50">Welcome to Shedula</h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-lg leading-relaxed">
               Your trusted healthcare companion. Connect with qualified doctors and manage your health journey with ease.
             </p>

@@ -17,7 +17,7 @@ export function SimpleFooter() {
           </div>
 
           <p className="text-sm text-gray-500 dark:text-gray-400 text-center md:text-right">
-            © 2025 DocBook. All rights reserved.
+            © 2025 Shedula. All rights reserved.
           </p>
         </div>
       </div>

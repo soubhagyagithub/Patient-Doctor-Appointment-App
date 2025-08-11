@@ -227,7 +227,7 @@ export default function PatientPrescriptionsPage() {
                           qualifications: "MD, MBBS",
                           specialty: "General Medicine",
                           phone: "+1-555-0101",
-                          clinicAddress: "Medicare Health Center, 123 Medical Plaza, Healthcare City",
+                          clinicAddress: "Shedula Health Center, 123 Medical Plaza, Healthcare City",
                           registrationNumber: "MED12345"
                         }}
                         trigger={

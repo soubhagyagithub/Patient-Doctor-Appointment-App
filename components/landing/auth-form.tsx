@@ -44,11 +44,11 @@ export default function AuthForm({
             <Heart className="w-8 h-8 text-white" />
           </div>
           <span className="text-4xl font-bold text-gray-800 dark:text-gray-100">
-            Medi<span className="text-blue-500">Care</span>
+            Shed<span className="text-blue-500">ula</span>
           </span>
         </div>
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50 mb-2">
-          {isLogin ? "Welcome Back!" : "Join MediCare"}
+          {isLogin ? "Welcome Back!" : "Join Shedula"}
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
           {isLogin ? "Sign in to continue your health journey" : "Start your healthcare journey today"}

@@ -14,7 +14,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "Patient since 2020",
     content:
-      "The care I received at Medicare was exceptional. The doctors were knowledgeable, compassionate, and took the time to explain everything clearly. I couldn't have asked for better treatment.",
+      "The care I received at Shedula was exceptional. The doctors were knowledgeable, compassionate, and took the time to explain everything clearly. I couldn't have asked for better treatment.",
     image: "/placeholder.svg?height=60&width=60&text=SJ",
     bg: "from-rose-50 via-pink-50 to-rose-100 dark:from-rose-900 dark:via-pink-900 dark:to-rose-800",
     accent: "rose",
@@ -23,7 +23,7 @@ const testimonials = [
     name: "Michael Chen",
     role: "Patient since 2018",
     content:
-      "Medicare's emergency department saved my life. The quick response and professional care I received during my heart attack was incredible. Forever grateful to the entire team.",
+      "Shedula's emergency department saved my life. The quick response and professional care I received during my heart attack was incredible. Forever grateful to the entire team.",
     image: "/placeholder.svg?height=60&width=60&text=MC",
     bg: "from-blue-50 via-sky-50 to-blue-100 dark:from-blue-900 dark:via-sky-900 dark:to-blue-800",
     accent: "blue",
@@ -32,7 +32,7 @@ const testimonials = [
     name: "Emily Rodriguez",
     role: "Patient since 2019",
     content:
-      "As a mother of three, I appreciate Medicare's pediatric care. The doctors are wonderful with children, and the facilities are clean and welcoming. Highly recommend to all families.",
+      "As a mother of three, I appreciate Shedula's pediatric care. The doctors are wonderful with children, and the facilities are clean and welcoming. Highly recommend to all families.",
     image: "/placeholder.svg?height=60&width=60&text=ER",
     bg: "from-emerald-50 via-green-50 to-emerald-100 dark:from-emerald-900 dark:via-green-900 dark:to-emerald-800",
     accent: "emerald",
@@ -41,7 +41,7 @@ const testimonials = [
     name: "David Thompson",
     role: "Patient since 2021",
     content:
-      "The surgical team at Medicare performed my knee replacement with precision and care. The recovery process was smooth thanks to their excellent post-operative support and guidance.",
+      "The surgical team at Shedula performed my knee replacement with precision and care. The recovery process was smooth thanks to their excellent post-operative support and guidance.",
     image: "/placeholder.svg?height=60&width=60&text=DT",
     bg: "from-purple-50 via-violet-50 to-purple-100 dark:from-purple-900 dark:via-violet-900 dark:to-purple-800",
     accent: "purple",
@@ -50,7 +50,7 @@ const testimonials = [
     name: "Lisa Wang",
     role: "Patient since 2017",
     content:
-      "Medicare's oncology department provided me with hope during my cancer treatment. The compassionate care and cutting-edge treatment options helped me beat cancer successfully.",
+      "Shedula's oncology department provided me with hope during my cancer treatment. The compassionate care and cutting-edge treatment options helped me beat cancer successfully.",
     image: "/placeholder.svg?height=60&width=60&text=LW",
     bg: "from-amber-50 via-yellow-50 to-amber-100 dark:from-amber-900 dark:via-yellow-900 dark:to-amber-800",
     accent: "amber",

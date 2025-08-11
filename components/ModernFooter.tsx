@@ -18,7 +18,7 @@ export function ModernFooter() {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                MediCare
+                Shedula
               </span>
             </div>
             {/* CHANGED: Added dual-theme text color */}
@@ -134,7 +134,7 @@ export function ModernFooter() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex items-center space-x-3">
               <Mail className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-              <span className="text-slate-500 dark:text-gray-400">support@medicare.com</span>
+              <span className="text-slate-500 dark:text-gray-400">support@shedula.com</span>
             </div>
             <div className="flex items-center space-x-3">
               <Phone className="w-5 h-5 text-blue-500 dark:text-blue-400" />
@@ -167,7 +167,7 @@ export function ModernFooter() {
 
         {/* Copyright */}
         <div className="border-t border-slate-200 dark:border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-slate-500 dark:text-gray-400">© 2025 MediCare. All rights reserved. | Privacy Policy | Terms of Service</p>
+          <p className="text-slate-500 dark:text-gray-400">© 2025 Shedula. All rights reserved. | Privacy Policy | Terms of Service</p>
         </div>
       </div>
     </footer>

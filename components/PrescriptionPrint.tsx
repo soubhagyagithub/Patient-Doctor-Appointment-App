@@ -59,13 +59,13 @@ export const PrescriptionPrint = forwardRef<HTMLDivElement, PrescriptionPrintPro
 
               {/* Hospital Details */}
               <div>
-                <h1 className="text-xl font-bold text-blue-800 mb-1">MediCare Medical Center</h1>
+                <h1 className="text-xl font-bold text-blue-800 mb-1">Shedula Medical Center</h1>
                 <p className="text-sm font-medium text-gray-700">Advanced Healthcare & Medical Services</p>
                 <p className="text-xs text-gray-600">Estd. 1985 | NABH Accredited | ISO 9001:2015 Certified</p>
                 <div className="mt-2 text-xs text-gray-600 space-y-1">
                   <p>📍 123 Medical Plaza, Healthcare City, State - 12345</p>
                   <p>📞 Emergency: +1-555-EMERGENCY | OPD: +1-555-0101</p>
-                  <p>🌐 www.medicare-medical.com | ✉️ info@medicare-medical.com</p>
+                  <p>🌐 www.shedula-medical.com | ✉️ info@shedula-medical.com</p>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@ export const PrescriptionPrint = forwardRef<HTMLDivElement, PrescriptionPrintPro
             <div>
               <p><strong>Contact:</strong> +1-555-PATIENT</p>
               <p><strong>Address:</strong> 123 Patient Street, City</p>
-              <p><strong>Insurance:</strong> Medicare Gold Plan</p>
+              <p><strong>Insurance:</strong> Shedula Gold Plan</p>
             </div>
           </div>
         </div>
@@ -234,7 +234,7 @@ export const PrescriptionPrint = forwardRef<HTMLDivElement, PrescriptionPrintPro
           <div className="mt-4 bg-gray-100 border border-gray-300 p-2 rounded text-center">
             <div className="flex justify-between items-center text-xs text-gray-600">
               <div>
-                <p className="font-medium">MediCare Medical Center</p>
+                <p className="font-medium">Shedula Medical Center</p>
                 <p>📍 123 Medical Plaza, Healthcare City | 📞 +1-555-0101</p>
               </div>
               <div className="text-center">
@@ -242,8 +242,8 @@ export const PrescriptionPrint = forwardRef<HTMLDivElement, PrescriptionPrintPro
                 <p>Document ID: MC-{prescription.id.slice(-6).toUpperCase()}</p>
               </div>
               <div className="text-right">
-                <p>🌐 www.medicare-medical.com</p>
-                <p>📧 prescriptions@medicare-medical.com</p>
+                <p>🌐 www.shedula-medical.com</p>
+                <p>📧 prescriptions@shedula-medical.com</p>
               </div>
             </div>
           </div>

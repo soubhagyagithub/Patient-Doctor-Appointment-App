@@ -50,14 +50,14 @@ export default function AboutSection() {
             className="text-center max-w-3xl mx-auto"
           >
             <Badge className="bg-gradient-to-r from-green-200 to-green-400 text-green-800 hover:scale-105 shadow-md px-5 py-2 text-base font-semibold mb-4 transition-transform duration-300 ease-in-out rounded-full dark:from-green-700 dark:to-green-600 dark:text-white">
-              About MediCare
+              About Shedula
             </Badge>
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
               Leading Healthcare Excellence for Over {" "}
               <span className="text-blue-600 dark:text-blue-400">20 Years</span>
             </h2>
             <p className="text-gray-700 dark:text-gray-300 md:text-xl leading-relaxed mb-10">
-              MediCare is dedicated to providing innovative, patient-centered healthcare with compassion and expertise.
+              Shedula is dedicated to providing innovative, patient-centered healthcare with compassion and expertise.
               Our commitment to excellence and modern medical practices has made us a trusted name for thousands of families.
             </p>
           </motion.div>

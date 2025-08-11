@@ -173,11 +173,17 @@ export default function PatientDetailsPage() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center justify-between mb-8">
             <Button variant="outline" asChild>
               <Link href="/doctor/patients">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Patients
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link href={`/doctor/patients/${patientId}/medical-history`}>
+                <FileText className="w-4 h-4 mr-2" />
+                View Complete Medical History
               </Link>
             </Button>
           </div>
@@ -248,6 +254,48 @@ export default function PatientDetailsPage() {
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6">
+              {/* Quick Access Medical History */}
+              <Card className="border-2 border-blue-200 dark:border-blue-800">
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Activity className="w-5 h-5 text-blue-500" />
+                      Complete Medical History
+                    </div>
+                    <Button asChild size="sm">
+                      <Link href={`/doctor/patients/${patientId}/medical-history`}>
+                        View All Records
+                      </Link>
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    Access complete chronological medical history including all appointments, diagnoses, and prescriptions.
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                      <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                        {appointments.length}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Total Visits</p>
+                    </div>
+                    <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                      <p className="text-lg font-bold text-green-600 dark:text-green-400">
+                        {prescriptions.length}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Prescriptions</p>
+                    </div>
+                    <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                      <p className="text-lg font-bold text-purple-600 dark:text-purple-400">
+                        {appointments.filter(apt => apt.status === "completed").length}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Completed</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Recent Appointments */}
                 <Card>

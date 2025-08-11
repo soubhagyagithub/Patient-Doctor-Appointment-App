@@ -86,7 +86,7 @@ export default function Navbar() {
             <Heart className="h-7 w-7 text-white" />
           </div>
           <span className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-            Medicare
+            Shedula
           </span>
         </motion.div>
 

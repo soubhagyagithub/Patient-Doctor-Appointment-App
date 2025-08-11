@@ -297,7 +297,30 @@
       "name": "John Doe",
       "email": "john@example.com",
       "password": "patient123",
-      "phone": "+1-555-1001"
+      "phone": "+1-555-1001",
+      "dateOfBirth": "1985-06-15",
+      "address": "123 Main St, New York, NY 10001",
+      "emergencyContact": "Jane Doe - +1 (555) 987-6543",
+      "medicalHistory": ["Hypertension", "Type 2 Diabetes", "Allergic Rhinitis"],
+      "allergies": ["Penicillin", "Shellfish"],
+      "bloodType": "A+",
+      "height": "5'10\"",
+      "weight": "175 lbs"
+    },
+    {
+      "id": "2",
+      "name": "Emily Johnson",
+      "email": "emily.johnson@example.com",
+      "password": "patient123",
+      "phone": "+1-555-1002",
+      "dateOfBirth": "1992-03-22",
+      "address": "456 Oak Avenue, Los Angeles, CA 90210",
+      "emergencyContact": "Michael Johnson - +1 (555) 876-5432",
+      "medicalHistory": ["Asthma", "Migraine", "Anxiety"],
+      "allergies": ["Pollen", "Nuts"],
+      "bloodType": "O-",
+      "height": "5'6\"",
+      "weight": "140 lbs"
     }
   ],
   "appointments": [
@@ -308,12 +331,20 @@
       "doctorName": "Dr. Sarah Johnson",
       "patientName": "John Doe",
       "specialty": "Cardiology",
-      "date": "2025-08-07",
+      "date": "2025-01-15",
       "time": "14:00",
-      "status": "cancelled",
-      "consultationType": "video",
-      "symptoms": "hshshs",
-      "fee": 100
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Chest pain, shortness of breath",
+      "fee": 150,
+      "diagnosis": "Hypertension - well controlled",
+      "notes": "Patient reports occasional chest discomfort. Blood pressure stable on current medication. Continue current regimen.",
+      "vitalSigns": {
+        "bloodPressure": "125/80",
+        "heartRate": "78",
+        "temperature": "98.6°F",
+        "weight": "175 lbs"
+      }
     },
     {
       "id": "1753608241357",
@@ -322,9 +353,20 @@
       "doctorName": "Dr. Sarah Johnson",
       "patientName": "John Doe",
       "specialty": "Cardiology",
-      "date": "2025-07-27",
+      "date": "2024-12-10",
       "time": "10:00",
-      "status": "cancelled"
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Routine checkup",
+      "fee": 150,
+      "diagnosis": "Essential Hypertension - stable",
+      "notes": "Regular follow-up for hypertension. Patient adherent to medications. No new symptoms.",
+      "vitalSigns": {
+        "bloodPressure": "130/85",
+        "heartRate": "72",
+        "temperature": "98.4°F",
+        "weight": "176 lbs"
+      }
     },
     {
       "id": "1753608244069",
@@ -333,78 +375,148 @@
       "doctorName": "Dr. Michael Chen",
       "patientName": "John Doe",
       "specialty": "Dermatology",
-      "date": "2025-07-27",
+      "date": "2024-11-20",
       "time": "10:00",
-      "status": "pending"
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Skin rash on arms",
+      "fee": 120,
+      "diagnosis": "Contact Dermatitis",
+      "notes": "Allergic reaction to new detergent. Prescribed topical corticosteroid. Avoid allergen.",
+      "vitalSigns": {
+        "temperature": "98.2°F",
+        "weight": "174 lbs"
+      }
     },
     {
       "id": "1753608246626",
-      "doctorId": "5",
-      "patientId": "1",
-      "doctorName": "Dr. Lisa Thompson",
-      "patientName": "John Doe",
-      "specialty": "Pediatrics",
-      "date": "2025-07-27",
-      "time": "10:00",
-      "status": "pending"
-    },
-    {
-      "id": "1753608486759",
       "doctorId": "7",
       "patientId": "1",
       "doctorName": "Dr. Amanda Davis",
       "patientName": "John Doe",
       "specialty": "General Medicine",
-      "date": "2025-07-27",
+      "date": "2024-10-15",
       "time": "10:00",
-      "status": "pending"
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Annual physical examination",
+      "fee": 90,
+      "diagnosis": "Type 2 Diabetes Mellitus - well controlled",
+      "notes": "Annual diabetes review. HbA1c: 6.8%. Continue metformin. Dietary counseling provided.",
+      "vitalSigns": {
+        "bloodPressure": "128/82",
+        "heartRate": "76",
+        "temperature": "98.5°F",
+        "weight": "173 lbs",
+        "bmi": "24.8"
+      }
+    },
+    {
+      "id": "1753608486759",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "specialty": "Cardiology",
+      "date": "2024-09-05",
+      "time": "15:00",
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Follow-up for hypertension",
+      "fee": 150,
+      "diagnosis": "Essential Hypertension",
+      "notes": "Blood pressure slightly elevated. Increased lisinopril dosage. Schedule follow-up in 6 weeks.",
+      "vitalSigns": {
+        "bloodPressure": "140/92",
+        "heartRate": "80",
+        "temperature": "98.7°F",
+        "weight": "172 lbs"
+      }
     },
     {
       "id": "1753608594110",
-      "doctorId": "1",
+      "doctorId": "3",
       "patientId": "1",
-      "doctorName": "Dr. Sarah Johnson",
+      "doctorName": "Dr. Emily Rodriguez",
       "patientName": "John Doe",
-      "specialty": "Cardiology",
-      "date": "2025-07-27",
-      "time": "10:00",
-      "status": "pending"
+      "specialty": "Neurology",
+      "date": "2024-08-12",
+      "time": "11:00",
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Chronic headaches",
+      "fee": 200,
+      "diagnosis": "Tension-type headache",
+      "notes": "Stress-related headaches. Recommended stress management techniques and physical therapy.",
+      "vitalSigns": {
+        "bloodPressure": "135/88",
+        "heartRate": "74",
+        "temperature": "98.3°F",
+        "weight": "171 lbs"
+      }
     },
     {
       "id": "1753608818624",
-      "doctorId": "1",
+      "doctorId": "7",
       "patientId": "1",
-      "doctorName": "Dr. Sarah Johnson",
+      "doctorName": "Dr. Amanda Davis",
       "patientName": "John Doe",
-      "specialty": "Cardiology",
-      "date": "2025-07-27",
-      "time": "10:00",
-      "status": "cancelled"
+      "specialty": "General Medicine",
+      "date": "2024-07-08",
+      "time": "09:00",
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Fatigue and frequent urination",
+      "fee": 90,
+      "diagnosis": "Type 2 Diabetes Mellitus - newly diagnosed",
+      "notes": "Initial diabetes diagnosis. Started on metformin 500mg twice daily. Diabetes education provided.",
+      "vitalSigns": {
+        "bloodPressure": "138/90",
+        "heartRate": "82",
+        "temperature": "98.6°F",
+        "weight": "170 lbs",
+        "bloodGlucose": "180 mg/dL"
+      }
     },
     {
       "id": "1753609062114",
-      "doctorId": "1",
-      "patientId": "1",
-      "doctorName": "Dr. Sarah Johnson",
-      "patientName": "John Doe",
-      "specialty": "Cardiology",
-      "date": "2025-07-27",
-      "time": "10:00",
-      "status": "pending"
+      "doctorId": "2",
+      "patientId": "2",
+      "doctorName": "Dr. Michael Chen",
+      "patientName": "Emily Johnson",
+      "specialty": "Dermatology",
+      "date": "2025-01-20",
+      "time": "14:00",
+      "status": "completed",
+      "consultationType": "clinic",
+      "symptoms": "Acne treatment follow-up",
+      "fee": 120,
+      "diagnosis": "Acne vulgaris - improving",
+      "notes": "Good response to topical retinoid therapy. Continue current treatment for 3 more months.",
+      "vitalSigns": {
+        "temperature": "98.4°F",
+        "weight": "142 lbs"
+      }
     },
     {
       "id": "1753969192000",
-      "doctorId": "2",
-      "patientId": "1",
-      "doctorName": "Dr. Michael Chen",
-      "patientName": "John Doe",
-      "specialty": "Dermatology",
-      "date": "2025-08-04",
+      "doctorId": "6",
+      "patientId": "2",
+      "doctorName": "Dr. Robert Kim",
+      "patientName": "Emily Johnson",
+      "specialty": "Psychiatry",
+      "date": "2024-12-15",
       "time": "14:00",
-      "status": "confirmed",
-      "consultationType": "clinic",
-      "symptoms": "",
-      "fee": 120
+      "status": "completed",
+      "consultationType": "video",
+      "symptoms": "Anxiety and panic attacks",
+      "fee": 120,
+      "diagnosis": "Generalized Anxiety Disorder",
+      "notes": "Started on sertraline 25mg daily. Cognitive behavioral therapy referral provided. Follow-up in 4 weeks.",
+      "vitalSigns": {
+        "heartRate": "95",
+        "temperature": "98.2°F"
+      }
     },
     {
       "id": "1753970290676",
@@ -413,74 +525,26 @@
       "doctorName": "Dr. Sarah Johnson",
       "patientName": "John Doe",
       "specialty": "Cardiology",
-      "date": "2025-08-04",
+      "date": "2025-02-04",
       "time": "15:00",
-      "status": "completed",
+      "status": "confirmed",
       "consultationType": "clinic",
-      "symptoms": "",
+      "symptoms": "Routine cardiac follow-up",
       "fee": 150
     },
     {
       "id": "1753971379501",
-      "doctorId": "1",
-      "patientId": "1",
-      "doctorName": "Dr. Sarah Johnson",
-      "patientName": "John Doe",
-      "specialty": "Cardiology",
-      "date": "2025-08-06",
+      "doctorId": "4",
+      "patientId": "2",
+      "doctorName": "Dr. James Wilson",
+      "patientName": "Emily Johnson",
+      "specialty": "Orthopedics",
+      "date": "2025-02-06",
       "time": "10:00",
       "status": "confirmed",
       "consultationType": "clinic",
-      "symptoms": "",
-      "fee": 150
-    },
-    {
-      "id": "1753971844236",
-      "doctorId": "1",
-      "patientId": "1",
-      "doctorName": "Dr. Sarah Johnson",
-      "patientName": "John Doe",
-      "specialty": "Cardiology",
-      "date": "2025-08-08",
-      "time": "16:00",
-      "status": "confirmed",
-      "consultationType": "clinic",
-      "symptoms": "",
-      "fee": 150,
-      "date": "2025-07-30",
-      "time": "11:00",
-      "status": "cancelled",
-      "consultationType": "clinic",
-      "symptoms": "",
-      "fee": 150
-    },
-    {
-      "id": "1753671149792",
-      "doctorId": "4",
-      "patientId": "1",
-      "doctorName": "Dr. James Wilson",
-      "patientName": "John Doe",
-      "specialty": "Orthopedics",
-      "date": "2025-07-30",
-      "time": "09:00",
-      "status": "confirmed",
-      "consultationType": "clinic",
-      "symptoms": "",
+      "symptoms": "Knee pain after exercise",
       "fee": 180
-    },
-    {
-      "id": "1753780484677",
-      "doctorId": "2",
-      "patientId": "1",
-      "doctorName": "Dr. Michael Chen",
-      "patientName": "John Doe",
-      "specialty": "Dermatology",
-      "date": "2025-07-31",
-      "time": "09:00",
-      "status": "confirmed",
-      "consultationType": "clinic",
-      "symptoms": "",
-      "fee": 120
     }
   ],
   "prescriptions": [
@@ -488,27 +552,261 @@
       "id": "1",
       "doctorId": "1",
       "patientId": "1",
-      "appointmentId": "1753970290676",
+      "appointmentId": "1753449750705",
       "patientName": "John Doe",
       "doctorName": "Dr. Sarah Johnson",
+      "diagnosis": "Hypertensive Heart Disease, Essential Hypertension",
       "medicines": [
         {
           "id": "1",
-          "name": "Aspirin",
-          "dosage": "75mg",
-          "duration": "30 days",
-          "instructions": "Take once daily after breakfast"
-        },
-        {
-          "id": "2",
           "name": "Lisinopril",
           "dosage": "10mg",
           "duration": "30 days",
-          "instructions": "Take once daily in the morning"
+          "frequency": "Once daily",
+          "instructions": "Take in the morning with food"
+        },
+        {
+          "id": "2",
+          "name": "Aspirin",
+          "dosage": "81mg",
+          "duration": "30 days",
+          "frequency": "Once daily",
+          "instructions": "Take with food to prevent stomach upset"
         }
       ],
-      "notes": "Follow up in 2 weeks. Monitor blood pressure daily.",
-      "dateCreated": "2025-01-27T10:30:00Z"
+      "notes": "Continue current medications. Monitor blood pressure at home daily. Regular cardiac monitoring required.",
+      "dateCreated": "2025-01-15T14:30:00Z"
+    },
+    {
+      "id": "2",
+      "doctorId": "1",
+      "patientId": "1",
+      "appointmentId": "1753608486759",
+      "patientName": "John Doe",
+      "doctorName": "Dr. Sarah Johnson",
+      "diagnosis": "Essential Hypertension",
+      "medicines": [
+        {
+          "id": "1",
+          "name": "Lisinopril",
+          "dosage": "15mg",
+          "duration": "30 days",
+          "frequency": "Once daily",
+          "instructions": "Increased dose. Take in the morning with food"
+        },
+        {
+          "id": "2",
+          "name": "Aspirin",
+          "dosage": "81mg",
+          "duration": "30 days",
+          "frequency": "Once daily",
+          "instructions": "Continue as before"
+        }
+      ],
+      "notes": "Increased lisinopril due to elevated BP readings. Follow-up in 6 weeks.",
+      "dateCreated": "2024-09-05T15:30:00Z"
+    },
+    {
+      "id": "3",
+      "doctorId": "7",
+      "patientId": "1",
+      "appointmentId": "1753608818624",
+      "patientName": "John Doe",
+      "doctorName": "Dr. Amanda Davis",
+      "diagnosis": "Type 2 Diabetes Mellitus, Diabetic Retinopathy - Early",
+      "medicines": [
+        {
+          "id": "1",
+          "name": "Metformin",
+          "dosage": "500mg",
+          "duration": "90 days",
+          "frequency": "Twice daily",
+          "instructions": "Take with breakfast and dinner to reduce stomach upset"
+        }
+      ],
+      "notes": "Initial diabetes treatment. Follow diabetic diet. Check blood glucose as directed. Annual eye exams required for diabetic retinopathy monitoring.",
+      "dateCreated": "2024-07-08T09:30:00Z"
+    },
+    {
+      "id": "4",
+      "doctorId": "2",
+      "patientId": "1",
+      "appointmentId": "1753608244069",
+      "patientName": "John Doe",
+      "doctorName": "Dr. Michael Chen",
+      "diagnosis": "Contact Dermatitis",
+      "medicines": [
+        {
+          "id": "1",
+          "name": "Hydrocortisone Cream",
+          "dosage": "1%",
+          "duration": "14 days",
+          "frequency": "Apply twice daily",
+          "instructions": "Apply thin layer to affected areas. Avoid contact with eyes"
+        }
+      ],
+      "notes": "Topical treatment for allergic dermatitis. Avoid known allergens.",
+      "dateCreated": "2024-11-20T10:30:00Z"
+    },
+    {
+      "id": "5",
+      "doctorId": "6",
+      "patientId": "2",
+      "appointmentId": "1753969192000",
+      "patientName": "Emily Johnson",
+      "doctorName": "Dr. Robert Kim",
+      "diagnosis": "Generalized Anxiety Disorder",
+      "medicines": [
+        {
+          "id": "1",
+          "name": "Sertraline",
+          "dosage": "25mg",
+          "duration": "30 days",
+          "frequency": "Once daily",
+          "instructions": "Take in the morning with food. May cause drowsiness initially"
+        }
+      ],
+      "notes": "Starting dose for anxiety treatment. Monitor for side effects. Follow-up in 4 weeks.",
+      "dateCreated": "2024-12-15T14:30:00Z"
+    },
+    {
+      "id": "6",
+      "doctorId": "2",
+      "patientId": "2",
+      "appointmentId": "1753609062114",
+      "patientName": "Emily Johnson",
+      "doctorName": "Dr. Michael Chen",
+      "diagnosis": "Acne vulgaris - improving",
+      "medicines": [
+        {
+          "id": "1",
+          "name": "Tretinoin Gel",
+          "dosage": "0.025%",
+          "duration": "90 days",
+          "frequency": "Once daily at bedtime",
+          "instructions": "Apply thin layer to clean, dry skin. Use sunscreen during the day"
+        },
+        {
+          "id": "2",
+          "name": "Benzoyl Peroxide",
+          "dosage": "5%",
+          "duration": "90 days",
+          "frequency": "Once daily in morning",
+          "instructions": "Apply to affected areas. May bleach clothing"
+        }
+      ],
+      "notes": "Continue current acne treatment. Good response seen. Use moisturizer if skin becomes dry.",
+      "dateCreated": "2025-01-20T14:30:00Z"
+    }
+  ],
+  "diagnoses": [
+    {
+      "id": "1",
+      "patientId": "1",
+      "doctorId": "1",
+      "appointmentId": "1753608818624",
+      "diagnosis": "Type 2 Diabetes Mellitus",
+      "icdCode": "E11.9",
+      "severity": "Moderate",
+      "status": "Active",
+      "dateOfDiagnosis": "2024-07-08",
+      "notes": "Newly diagnosed based on elevated fasting glucose and HbA1c. Patient education provided."
+    },
+    {
+      "id": "2",
+      "patientId": "1",
+      "doctorId": "1",
+      "appointmentId": "1753608486759",
+      "diagnosis": "Essential Hypertension",
+      "icdCode": "I10",
+      "severity": "Moderate",
+      "status": "Active",
+      "dateOfDiagnosis": "2024-03-15",
+      "notes": "Primary hypertension. Well controlled with medication."
+    },
+    {
+      "id": "3",
+      "patientId": "1",
+      "doctorId": "2",
+      "appointmentId": "1753608244069",
+      "diagnosis": "Contact Dermatitis",
+      "icdCode": "L25.9",
+      "severity": "Mild",
+      "status": "Resolved",
+      "dateOfDiagnosis": "2024-11-20",
+      "notes": "Allergic reaction to laundry detergent. Resolved with topical treatment."
+    },
+    {
+      "id": "4",
+      "patientId": "1",
+      "doctorId": "3",
+      "appointmentId": "1753608594110",
+      "diagnosis": "Tension-type headache",
+      "icdCode": "G44.209",
+      "severity": "Mild",
+      "status": "Active",
+      "dateOfDiagnosis": "2024-08-12",
+      "notes": "Chronic tension headaches related to stress. Managed with lifestyle modifications."
+    },
+    {
+      "id": "5",
+      "patientId": "2",
+      "doctorId": "6",
+      "appointmentId": "1753969192000",
+      "diagnosis": "Generalized Anxiety Disorder",
+      "icdCode": "F41.1",
+      "severity": "Moderate",
+      "status": "Active",
+      "dateOfDiagnosis": "2024-12-15",
+      "notes": "Anxiety with panic attacks. Started on medication and therapy referral provided."
+    },
+    {
+      "id": "6",
+      "patientId": "2",
+      "doctorId": "2",
+      "appointmentId": "1753609062114",
+      "diagnosis": "Acne vulgaris",
+      "icdCode": "L70.0",
+      "severity": "Mild",
+      "status": "Improving",
+      "dateOfDiagnosis": "2024-10-10",
+      "notes": "Moderate acne responding well to topical retinoid therapy."
+    },
+    {
+      "id": "7",
+      "patientId": "1",
+      "doctorId": "1",
+      "appointmentId": "1753449750705",
+      "diagnosis": "Hypertensive Heart Disease",
+      "icdCode": "I11.9",
+      "severity": "Moderate",
+      "status": "Active",
+      "dateOfDiagnosis": "2025-01-15",
+      "notes": "Secondary to long-standing hypertension. Regular cardiac monitoring required."
+    },
+    {
+      "id": "8",
+      "patientId": "1",
+      "doctorId": "7",
+      "appointmentId": "1753608246626",
+      "diagnosis": "Diabetic Retinopathy - Early",
+      "icdCode": "E11.319",
+      "severity": "Mild",
+      "status": "Active",
+      "dateOfDiagnosis": "2024-10-15",
+      "notes": "Early signs of diabetic eye changes. Annual ophthalmology follow-up recommended."
+    },
+    {
+      "id": "9",
+      "patientId": "1",
+      "doctorId": "1",
+      "appointmentId": "1753608241357",
+      "diagnosis": "Hyperlipidemia",
+      "icdCode": "E78.5",
+      "severity": "Moderate",
+      "status": "Active",
+      "dateOfDiagnosis": "2024-12-10",
+      "notes": "Elevated cholesterol levels secondary to diabetes. Lifestyle modifications recommended along with medication therapy."
     }
   ]
 }

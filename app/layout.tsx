@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider"; // ✅ Import theme
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "DocBook - Your Trusted Healthcare Companion",
+  title: "Shedula - Your Trusted Healthcare Companion",
   description:
     "Connect with qualified doctors, book appointments, and get online consultations",
   generator: "next",

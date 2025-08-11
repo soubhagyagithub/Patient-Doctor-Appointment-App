@@ -11,7 +11,7 @@ const testimonials = [
     role: "Patient",
     image: "/placeholder.svg?height=80&width=80",
     rating: 5,
-    text: "MediCare made it so easy to find a great doctor. The video consultation was smooth and professional. Highly recommend!",
+    text: "Shedula made it so easy to find a great doctor. The video consultation was smooth and professional. Highly recommend!",
   },
   {
     id: 2,
@@ -55,7 +55,7 @@ export function TestimonialSection() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">What Our Patients Say</h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Real experiences from real patients who trust MediCare for their healthcare needs
+            Real experiences from real patients who trust Shedula for their healthcare needs
           </p>
         </div>
 

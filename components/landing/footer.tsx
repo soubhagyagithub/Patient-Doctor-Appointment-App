@@ -79,7 +79,7 @@ export default function Footer() {
                   <Heart className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Medicare
+                  Shedula
                 </span>
               </div>
               <p className="text-sm text-gray-700 dark:text-gray-400 max-w-xs">
@@ -141,7 +141,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-purple-400" />
-                <p>info@medicare.com</p>
+                <p>info@shedula.com</p>
               </div>
               <Button className="mt-4 bg-red-600 hover:bg-red-700 text-white w-full">
                 <Phone className="mr-2 h-4 w-4" />
@@ -156,7 +156,7 @@ export default function Footer() {
             className="mt-10 pt-6 border-t border-gray-300 dark:border-gray-700 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 dark:text-gray-400"
           >
             <p className="text-center md:text-left mb-4 md:mb-0">
-              © {new Date().getFullYear()} Medicare. All rights reserved.
+              © {new Date().getFullYear()} Shedula. All rights reserved.
             </p>
             <div className="flex space-x-4">
               {["Privacy", "Terms", "Cookies"].map((item, i) => (
