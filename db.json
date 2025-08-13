@@ -808,5 +808,98 @@
       "dateOfDiagnosis": "2024-12-10",
       "notes": "Elevated cholesterol levels secondary to diabetes. Lifestyle modifications recommended along with medication therapy."
     }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "appointmentId": "1753449750705",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "rating": 5,
+      "reviewText": "Excellent doctor! Very thorough examination and clear explanation of my condition. The treatment plan has been very effective.",
+      "dateCreated": "2025-01-16T10:30:00Z",
+      "dateUpdated": null,
+      "isEditable": true
+    },
+    {
+      "id": "2",
+      "appointmentId": "1753608244069",
+      "doctorId": "2",
+      "patientId": "1",
+      "doctorName": "Dr. Michael Chen",
+      "patientName": "John Doe",
+      "rating": 4,
+      "reviewText": "Good experience overall. The doctor was professional and the treatment worked well. Office staff was friendly.",
+      "dateCreated": "2024-11-21T14:45:00Z",
+      "dateUpdated": null,
+      "isEditable": false
+    },
+    {
+      "id": "3",
+      "appointmentId": "1753608246626",
+      "doctorId": "7",
+      "patientId": "1",
+      "doctorName": "Dr. Amanda Davis",
+      "patientName": "John Doe",
+      "rating": 5,
+      "reviewText": "Dr. Davis is amazing! She took time to explain my diabetes management plan in detail. Very caring and knowledgeable.",
+      "dateCreated": "2024-10-16T08:20:00Z",
+      "dateUpdated": null,
+      "isEditable": false
+    },
+    {
+      "id": "4",
+      "appointmentId": "1753608486759",
+      "doctorId": "1",
+      "patientId": "1",
+      "doctorName": "Dr. Sarah Johnson",
+      "patientName": "John Doe",
+      "rating": 4,
+      "reviewText": "Always reliable and professional. Adjusted my medication appropriately and provided good follow-up care.",
+      "dateCreated": "2024-09-06T16:15:00Z",
+      "dateUpdated": null,
+      "isEditable": false
+    },
+    {
+      "id": "5",
+      "appointmentId": "1753608594110",
+      "doctorId": "3",
+      "patientId": "1",
+      "doctorName": "Dr. Emily Rodriguez",
+      "patientName": "John Doe",
+      "rating": 5,
+      "reviewText": "Exceptional neurologist! Very thorough assessment of my headaches and provided excellent stress management advice.",
+      "dateCreated": "2024-08-13T12:30:00Z",
+      "dateUpdated": null,
+      "isEditable": false
+    },
+    {
+      "id": "6",
+      "appointmentId": "1753609062114",
+      "doctorId": "2",
+      "patientId": "2",
+      "doctorName": "Dr. Michael Chen",
+      "patientName": "Emily Johnson",
+      "rating": 5,
+      "reviewText": "Great results with my acne treatment! Dr. Chen explained everything clearly and the treatment plan is working perfectly.",
+      "dateCreated": "2025-01-21T11:45:00Z",
+      "dateUpdated": null,
+      "isEditable": true
+    },
+    {
+      "id": "7",
+      "appointmentId": "1753969192000",
+      "doctorId": "6",
+      "patientId": "2",
+      "doctorName": "Dr. Robert Kim",
+      "patientName": "Emily Johnson",
+      "rating": 4,
+      "reviewText": "Very understanding and helpful psychiatrist. Made me feel comfortable discussing my anxiety. Good treatment approach.",
+      "dateCreated": "2024-12-16T09:30:00Z",
+      "dateUpdated": null,
+      "isEditable": false
+    }
   ]
 }

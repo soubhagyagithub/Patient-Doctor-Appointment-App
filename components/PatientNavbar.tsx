@@ -2,17 +2,18 @@
 
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
-import { 
-  LogOut, 
-  User, 
-  Calendar, 
-  Home, 
+import {
+  LogOut,
+  User,
+  Calendar,
+  Home,
   Search,
   FileText,
   Bell,
   Settings,
   Heart,
-  Stethoscope
+  Stethoscope,
+  Star
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
@@ -42,6 +43,7 @@ export function PatientNavbar() {
     { href: "/patient/dashboard", label: "Dashboard", icon: Home },
     { href: "/find-doctors", label: "Find Doctors", icon: Search },
     { href: "/appointments", label: "Appointments", icon: Calendar },
+    { href: "/patient/reviews", label: "Reviews", icon: Star },
     { href: "/prescriptions", label: "Records", icon: FileText },
     { href: "/profile", label: "Profile", icon: User },
   ]
@@ -59,7 +61,7 @@ export function PatientNavbar() {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                Health<span className="text-blue-500">Care</span>
+                Shedula
               </span>
             </Link>
           </div>

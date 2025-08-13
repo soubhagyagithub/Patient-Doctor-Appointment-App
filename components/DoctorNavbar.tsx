@@ -2,17 +2,18 @@
 
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
-import { 
-  LogOut, 
-  User, 
-  Calendar, 
-  Home, 
-  Users, 
-  FileText, 
+import {
+  LogOut,
+  User,
+  Calendar,
+  Home,
+  Users,
+  FileText,
   CalendarDays,
   Heart,
   Bell,
-  Settings
+  Settings,
+  Star
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
@@ -61,6 +62,7 @@ export function DoctorNavbar() {
     { href: "/doctor/appointments", label: "Appointments", icon: Calendar },
     { href: "/doctor/calendar", label: "Calendar", icon: CalendarDays },
     { href: "/doctor/prescriptions", label: "Prescriptions", icon: FileText },
+    { href: "/doctor/reviews", label: "Reviews", icon: Star },
   ]
 
   const isActive = (path: string) => pathname === path

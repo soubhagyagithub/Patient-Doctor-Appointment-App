@@ -215,6 +215,7 @@ export default function AppointmentsPage() {
                       appointmentId={appointment.id}
                       status={appointment.status}
                       doctorId={appointment.doctorId}
+                      doctorName={appointment.doctorName}
                       onAppointmentAction={loadAppointments}
                     />
                   </div>

@@ -210,6 +210,20 @@ export interface Diagnosis {
   notes?: string;
 }
 
+export interface Review {
+  id: string;
+  appointmentId: string;
+  doctorId: string;
+  patientId: string;
+  doctorName: string;
+  patientName: string;
+  rating: number; // 1-5 stars
+  reviewText: string;
+  dateCreated: string;
+  dateUpdated?: string | null;
+  isEditable: boolean; // true if within 24 hours
+}
+
 // Check if JSON Server is running
 const checkServerStatus = async () => {
   try {
