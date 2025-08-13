@@ -195,10 +195,10 @@ export default function DoctorAppointmentsPage() {
           <div className="text-center mb-8">
             {/* CHANGED: Added dual-theme text colors */}
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              My Appointments
+              Patient Schedule Management
             </h1>
             <p className="text-gray-600 dark:text-gray-300">
-              Manage your patient appointments
+              View, organize, and manage all your patient consultations, follow-ups, and medical appointments in one centralized dashboard
             </p>
           </div>
           {/* Section for Tab and View Toggle Buttons */}

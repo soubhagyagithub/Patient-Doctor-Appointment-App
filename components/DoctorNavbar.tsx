@@ -24,12 +24,29 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useEffect, useState } from "react"
+import { doctorsAPI } from "@/lib/api"
 
 export function DoctorNavbar() {
   const { user, logout } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
+  const [doctorData, setDoctorData] = useState<any>(null)
+
+  useEffect(() => {
+    const loadDoctorData = async () => {
+      if (user?.id) {
+        try {
+          const data = await doctorsAPI.getById(user.id)
+          setDoctorData(data)
+        } catch (error) {
+          console.error("Failed to load doctor data:", error)
+        }
+      }
+    }
+    loadDoctorData()
+  }, [user?.id])
 
   const handleLogout = () => {
     logout()
@@ -59,7 +76,7 @@ export function DoctorNavbar() {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                Doc<span className="text-blue-500">Book</span>
+                <span className="text-blue-500">Shedula</span>
               </span>
             </Link>
           </div>
@@ -104,6 +121,11 @@ export function DoctorNavbar() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center space-x-3 px-3 py-2">
                   <Avatar className="w-8 h-8">
+                    <AvatarImage
+                      src={doctorData?.image || "/placeholder.svg?height=32&width=32"}
+                      alt={user.name || "Doctor"}
+                      className="object-cover"
+                    />
                     <AvatarFallback className="bg-blue-500 text-white text-sm font-semibold">
                       {user.name?.split(" ").map(n => n[0]).join("") || "D"}
                     </AvatarFallback>

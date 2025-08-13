@@ -66,7 +66,7 @@ const AuthForm = ({
           <Heart className="w-8 h-8 text-white" />
         </div>
         <span className="text-4xl font-bold text-gray-800 dark:text-gray-100">
-          Doc<span className="text-blue-500">Book</span>
+          <span className="text-blue-500">Shedula</span>
         </span>
       </div>
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50 mb-2">{isLogin ? "Welcome Back!" : "Join Shedula"}</h1>
@@ -130,8 +130,8 @@ const AuthForm = ({
           <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
             <div className="text-sm text-blue-600 dark:text-blue-400">
               <p className="font-semibold mb-2">Demo</p>
-              <p>email: {isDoctor ? "sarah@example.com" : "john@example.com"}</p>
-              <p>password: password123</p>
+              <p>email: {isDoctor ? "sarah.johnson@email.com" : "john@example.com"}</p>
+              <p>password: {isDoctor ? "doctor123" : "patient123"}</p>
             </div>
           </div>
         )}
@@ -355,7 +355,7 @@ export default function AuthPage() {
                 <Heart className="w-10 h-10 text-white" />
               </div>
               <span className="text-5xl font-bold text-gray-800 dark:text-gray-100">
-                Doc<span className="text-blue-500">Book</span>
+                <span className="text-blue-500">Shedula</span>
               </span>
             </div>
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-gray-50">Welcome to Shedula</h2>

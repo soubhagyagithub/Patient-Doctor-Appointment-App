@@ -52,17 +52,88 @@ export default function ViewPrescriptionPage() {
     if (printRef.current) {
       const printWindow = window.open('', '_blank')
       if (printWindow) {
+        // Get all stylesheets and inline styles
+        const allStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"], style')).map(el => {
+          if (el.tagName === 'LINK') {
+            return `<link rel="stylesheet" href="${el.href}">`
+          }
+          return el.outerHTML
+        }).join('')
+
         printWindow.document.write(`
           <!DOCTYPE html>
           <html>
             <head>
               <title>Prescription - ${prescription?.patientName}</title>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <script src="https://cdn.tailwindcss.com"></script>
+              ${allStyles}
               <style>
-                @media print {
-                  body { margin: 0; }
-                  .no-print { display: none !important; }
+                @page {
+                  size: A4;
+                  margin: 0;
                 }
-                body { font-family: 'Times New Roman', serif; }
+
+                * {
+                  -webkit-print-color-adjust: exact !important;
+                  color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                }
+
+                @media print {
+                  body {
+                    margin: 0;
+                    background: white !important;
+                  }
+                  .no-print { display: none !important; }
+                  .prescription-container {
+                    box-shadow: none !important;
+                    margin: 0 !important;
+                    width: 210mm !important;
+                    min-height: 297mm !important;
+                    max-width: none !important;
+                  }
+                }
+
+                body {
+                  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+                  background: white;
+                  margin: 0;
+                  padding: 0;
+                }
+
+                /* Ensure all colors and backgrounds print */
+                .bg-blue-600 { background-color: #2563eb !important; }
+                .bg-blue-800 { background-color: #1e40af !important; }
+                .bg-blue-100 { background-color: #dbeafe !important; }
+                .bg-blue-50 { background-color: #eff6ff !important; }
+                .bg-gray-50 { background-color: #f9fafb !important; }
+                .bg-yellow-50 { background-color: #fefce8 !important; }
+                .bg-red-50 { background-color: #fef2f2 !important; }
+                .text-blue-600 { color: #2563eb !important; }
+                .text-blue-800 { color: #1e40af !important; }
+                .text-white { color: white !important; }
+                .text-gray-600 { color: #4b5563 !important; }
+                .text-gray-700 { color: #374151 !important; }
+                .text-gray-800 { color: #1f2937 !important; }
+                .text-yellow-800 { color: #92400e !important; }
+                .text-red-800 { color: #991b1b !important; }
+                .text-red-700 { color: #b91c1c !important; }
+                .border-blue-600 { border-color: #2563eb !important; }
+                .border-gray-300 { border-color: #d1d5db !important; }
+                .border-gray-400 { border-color: #9ca3af !important; }
+                .border-yellow-300 { border-color: #fcd34d !important; }
+                .border-red-200 { border-color: #fecaca !important; }
+
+                /* Table styles */
+                table { border-collapse: collapse !important; }
+                th, td { border: 1px solid #9ca3af !important; }
+
+                /* Wave decoration */
+                .wave-decoration svg {
+                  fill: rgba(37, 99, 235, 0.1) !important;
+                }
               </style>
             </head>
             <body>
@@ -71,8 +142,12 @@ export default function ViewPrescriptionPage() {
           </html>
         `)
         printWindow.document.close()
-        printWindow.print()
-        printWindow.close()
+
+        // Wait longer for Tailwind and styles to load
+        setTimeout(() => {
+          printWindow.print()
+          setTimeout(() => printWindow.close(), 100)
+        }, 1000)
       }
     }
   }

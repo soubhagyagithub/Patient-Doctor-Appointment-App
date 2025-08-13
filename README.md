@@ -79,12 +79,12 @@ A full-stack web application for booking doctor appointments with role-based aut
 ## Default Login Credentials
 
 ### Doctor Account
-- Email: sarah@example.com
-- Password: password123
+- Email: sarah.johnson@email.com
+- Password: doctor123
 
-### Patient Account  
+### Patient Account
 - Email: john@example.com
-- Password: password123
+- Password: patient123
 
 ## Project Structure
 

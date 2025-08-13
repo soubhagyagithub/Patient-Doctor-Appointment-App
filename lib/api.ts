@@ -24,6 +24,8 @@ const detectWorkingApiBase = async (): Promise<string> => {
     return EXTERNAL_API;
   }
 
+  console.log("🔧 Development environment detected, testing API servers...");
+
   // In development, try local server first
   try {
     const controller = new AbortController();
@@ -49,7 +51,7 @@ const detectWorkingApiBase = async (): Promise<string> => {
   // Fallback to external server
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout for external
 
     const response = await fetch(`${EXTERNAL_API}/doctors`, {
       method: "HEAD",
@@ -69,28 +71,49 @@ const detectWorkingApiBase = async (): Promise<string> => {
   }
 
   // If nothing works, default to external API (production-safe)
-  workingApiBase = EXTERNAL_API;
-  console.log("⚠️ Defaulting to external API:", EXTERNAL_API);
+  // Don't cache this as failed, so it can retry on next call
+  console.warn("⚠️ No API servers responded, defaulting to external API:", EXTERNAL_API);
   return EXTERNAL_API;
 };
 
 // Initialize API_BASE - will be set dynamically
 let API_BASE = LOCAL_API;
 
+// Function to reset the cached API base (useful for error recovery)
+export const resetApiBaseCache = () => {
+  workingApiBase = null;
+  console.log("🔄 API base cache reset");
+};
+
 // Health check function to test API connectivity
 export const checkApiHealth = async (): Promise<{ isHealthy: boolean; apiBase: string; error?: string }> => {
   try {
     const apiBase = await detectWorkingApiBase();
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+
     const response = await fetch(`${apiBase}/doctors`, {
       method: "HEAD",
+      signal: controller.signal
     });
+
+    clearTimeout(timeoutId);
+
     return {
       isHealthy: response.ok,
       apiBase: apiBase,
       error: response.ok ? undefined : `HTTP ${response.status} ${response.statusText}`
     };
   } catch (error) {
-    const apiBase = await detectWorkingApiBase();
+    // Get the api base for reporting, but don't let this fail the health check
+    let apiBase = EXTERNAL_API;
+    try {
+      apiBase = await detectWorkingApiBase();
+    } catch (detectionError) {
+      // Ignore detection errors in health check
+    }
+
     return {
       isHealthy: false,
       apiBase: apiBase,
@@ -190,7 +213,8 @@ export interface Diagnosis {
 // Check if JSON Server is running
 const checkServerStatus = async () => {
   try {
-    const response = await fetch(`${API_BASE}/doctors`, {
+    const apiBase = await detectWorkingApiBase();
+    const response = await fetch(`${apiBase}/doctors`, {
       method: "HEAD",
       timeout: 5000 // 5 second timeout
     });
@@ -204,19 +228,11 @@ const checkServerStatus = async () => {
 // Enhanced error handler with better debugging
 const handleApiError = (error: any, operation: string) => {
   console.error(`API Error during ${operation}:`, error);
-  console.error(`API_BASE being used: ${API_BASE}`);
 
   if (error instanceof TypeError && error.message.includes("fetch")) {
-    // Check if we're trying to connect to localhost
-    if (API_BASE.includes("localhost")) {
-      throw new Error(
-        `Cannot connect to local JSON server at ${API_BASE}. Please ensure JSON server is running with 'npm run json-server' in a separate terminal.`
-      );
-    } else {
-      throw new Error(
-        `Cannot connect to API server at ${API_BASE}. Please check your internet connection or server status.`
-      );
-    }
+    throw new Error(
+      `Cannot connect to API server. Please check your internet connection or try again later.`
+    );
   }
 
   if (error.name === 'AbortError') {
@@ -230,8 +246,9 @@ const handleApiError = (error: any, operation: string) => {
 export const authAPI = {
   async login(email: string, password: string, role: "doctor" | "patient") {
     try {
+      const apiBase = await detectWorkingApiBase();
       const endpoint = role === "doctor" ? "doctors" : "patients";
-      const response = await fetch(`${API_BASE}/${endpoint}`);
+      const response = await fetch(`${apiBase}/${endpoint}`);
 
       if (!response.ok) {
         throw new Error(
@@ -261,8 +278,9 @@ export const authAPI = {
 
   async signup(userData: any, role: "doctor" | "patient") {
     try {
+      const apiBase = await detectWorkingApiBase();
       const endpoint = role === "doctor" ? "doctors" : "patients";
-      const response = await fetch(`${API_BASE}/${endpoint}`, {
+      const response = await fetch(`${apiBase}/${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -308,7 +326,8 @@ export const doctorsAPI = {
 
   async getById(id: string): Promise<Doctor> {
     try {
-      const response = await fetch(`${API_BASE}/doctors/${id}`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/doctors/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch doctor");
       }
@@ -325,7 +344,8 @@ export const doctorsAPI = {
 
   async update(id: string, data: Partial<Doctor>): Promise<Doctor> {
     try {
-      const response = await fetch(`${API_BASE}/doctors/${id}`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/doctors/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -351,7 +371,8 @@ export const doctorsAPI = {
 export const appointmentsAPI = {
   async create(appointment: Omit<Appointment, "id">): Promise<Appointment> {
     try {
-      const response = await fetch(`${API_BASE}/appointments`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -389,8 +410,9 @@ export const appointmentsAPI = {
 
   async getByPatientId(patientId: string): Promise<Appointment[]> {
     try {
+      const apiBase = await detectWorkingApiBase();
       const response = await fetch(
-        `${API_BASE}/appointments?patientId=${patientId}`
+        `${apiBase}/appointments?patientId=${patientId}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch appointments");
@@ -411,7 +433,8 @@ export const appointmentsAPI = {
     status: Appointment["status"]
   ): Promise<Appointment> {
     try {
-      const response = await fetch(`${API_BASE}/appointments/${id}`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/appointments/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -432,7 +455,8 @@ export const appointmentsAPI = {
     }
   },
   cancelAppointment: async (appointmentId: string): Promise<void> => {
-    const response = await fetch(`${API_BASE}/appointments/${appointmentId}`, {
+    const apiBase = await detectWorkingApiBase();
+    const response = await fetch(`${apiBase}/appointments/${appointmentId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -456,7 +480,8 @@ export const appointmentsAPI = {
     time: string
   ): Promise<Appointment> {
     try {
-      const response = await fetch(`${API_BASE}/appointments/${id}`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/appointments/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -482,7 +507,8 @@ export const appointmentsAPI = {
 export const patientsAPI = {
   async getAll(): Promise<Patient[]> {
     try {
-      const response = await fetch(`${API_BASE}/patients`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/patients`);
       if (!response.ok) {
         throw new Error(`Failed to fetch patients: ${response.status} ${response.statusText}`);
       }
@@ -494,7 +520,8 @@ export const patientsAPI = {
 
   async getById(id: string): Promise<Patient> {
     try {
-      const response = await fetch(`${API_BASE}/patients/${id}`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/patients/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch patient");
       }
@@ -511,7 +538,8 @@ export const patientsAPI = {
 
   async update(id: string, data: Partial<Patient>): Promise<Patient> {
     try {
-      const response = await fetch(`${API_BASE}/patients/${id}`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/patients/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -537,12 +565,13 @@ export const patientsAPI = {
 export const prescriptionsAPI = {
   async create(prescription: Omit<Prescription, "id" | "dateCreated">): Promise<Prescription> {
     try {
+      const apiBase = await detectWorkingApiBase();
       const newPrescription = {
         ...prescription,
         id: Date.now().toString(),
         dateCreated: new Date().toISOString(),
       };
-      const response = await fetch(`${API_BASE}/prescriptions`, {
+      const response = await fetch(`${apiBase}/prescriptions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -578,7 +607,8 @@ export const prescriptionsAPI = {
 
   async getByPatientId(patientId: string): Promise<Prescription[]> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions?patientId=${patientId}`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions?patientId=${patientId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch prescriptions");
       }
@@ -595,7 +625,8 @@ export const prescriptionsAPI = {
 
   async update(id: string, data: Partial<Prescription>): Promise<Prescription> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions/${id}`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -618,7 +649,8 @@ export const prescriptionsAPI = {
 
   async delete(id: string): Promise<void> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions/${id}`, {
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -636,7 +668,8 @@ export const prescriptionsAPI = {
 
   async getById(id: string): Promise<Prescription> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions/${id}`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch prescription");
       }
@@ -653,7 +686,8 @@ export const prescriptionsAPI = {
 
   async getAll(): Promise<Prescription[]> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions`);
       if (!response.ok) {
         throw new Error("Failed to fetch prescriptions");
       }
@@ -670,7 +704,8 @@ export const prescriptionsAPI = {
 
   async findExistingForPatient(doctorId: string, patientId: string): Promise<Prescription | null> {
     try {
-      const response = await fetch(`${API_BASE}/prescriptions?doctorId=${doctorId}&patientId=${patientId}`);
+      const apiBase = await detectWorkingApiBase();
+      const response = await fetch(`${apiBase}/prescriptions?doctorId=${doctorId}&patientId=${patientId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch prescriptions");
       }

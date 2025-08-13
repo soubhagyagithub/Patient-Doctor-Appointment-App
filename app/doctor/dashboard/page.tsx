@@ -6,13 +6,13 @@ import { ProtectedRoute } from "@/components/ProtectedRoute"
 import { DoctorNavbar } from "@/components/DoctorNavbar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { appointmentsAPI, type Appointment } from "@/lib/api"
-import { 
-  Calendar, 
-  Users, 
-  Clock, 
-  TrendingUp, 
-  CheckCircle, 
-  XCircle, 
+import {
+  Calendar,
+  Users,
+  Clock,
+  TrendingUp,
+  CheckCircle,
+  XCircle,
   ChevronDown,
   DollarSign,
   Activity,
